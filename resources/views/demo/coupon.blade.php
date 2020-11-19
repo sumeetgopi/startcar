@@ -3,7 +3,7 @@ r@extends('layout.master')
 @section('content')
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>Coupon</h1>
+            <h1>Coupon</h1> test
         </section>
 
         <section class="content">
