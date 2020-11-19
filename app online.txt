@@ -1,0 +1,19 @@
+app online
+
+1 jan 
+
+
+
+1 march 
+
+
+15 days = 15 feb to 1 march (how many user login in my app --> total count)
+15-30 days = 1 feb to 1 march (how many user logiin in my app --> total count)
+
+
+
+today date --> 16 jan 
+1 jan - 15 jan (total count)
+
+15 december to 1 jan (between 15-30 days)
+15 november to 15 december 

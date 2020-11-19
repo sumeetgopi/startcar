@@ -1,0 +1,731 @@
+.fleet-carousel{
+	width:100%;
+	float:left;
+	padding:100px 0 100px;
+	background:url("../images/fleet-carousel-bg.jpg") no-repeat center center;
+	background-size:cover;
+	position:relative;
+	overflow:hidden;
+}
+.fleet-carousel .tj-heading-style{
+	text-align:center;
+	position:relative;
+	z-index:999;
+	margin-bottom:80px;
+}
+.fleet-carousel .tj-heading-style h3{
+	font-size:40px;
+	font-family:'Montserrat',sans-serif;
+	font-weight:600;
+	text-transform:capitalize;
+	color:#fff;
+	position:relative;
+	margin:0;
+}
+.fleet-carousel .tj-heading-style h3:after{
+	content:'';
+	background:url("../images/deal-hstyle-bg.png") no-repeat;
+	display:block;
+	height: 22px;
+	width: 43px;
+	margin: 10px auto;
+}
+.fleet-carousel .carousel-outer{
+	margin-left:-150px;
+	margin-right:-150px;
+}
+.fleet-carousel:after{
+	position:absolute;
+	content:'';
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background:rgba(19,32,43,0.9);
+}
+.fleet-carousel .cab-carousel{
+	width:100%;
+	float:left;
+}
+.cab-carousel .fleet-item{
+	position:relative;
+	z-index:999;
+	width:100%;
+	float:left;
+}
+.fleet-item img{
+	width:100%;
+	height:auto;
+}
+.fleet-item .fleet-inner{
+	width:100%;
+	float:left;
+	text-align:center;
+	margin-top:40px;
+	visibility:hidden;
+	opacity:0;
+}
+.cab-carousel .center .fleet-inner {
+	visibility:visible;
+	opacity:1;
+}
+.fleet-inner h4{
+	font-family:'Montserrat',sans-serif;
+	font-size:18px;
+	font-weight:500;
+	color:#fff;
+	text-transform:capitalize;
+	margin:0 0 15px;
+}
+.fleet-inner ul{
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+.fleet-inner ul li{
+	display:inline-block;
+	color:#d7d7d7;
+	position:relative;
+	padding-right:25px;
+}
+.fleet-inner ul li:after{
+	position:absolute;
+	content:"|";
+	right:6px;
+}
+.fleet-inner ul li:last-child:after{
+	content:'';
+	display:none;
+}
+.fleet-inner ul li i{
+	padding-right:7px;
+}
+.fleet-inner .price{
+	font-family:'Montserrat',sans-serif;
+	font-weight:600;
+	display:block;
+	color:#fff;
+	font-size:26px;
+	display:block;
+	padding:15px 0;
+}
+.fleet-inner .price span{
+	font-size:14px;
+}
+.fleet-inner a{
+	display:block;
+	width:150px;
+	text-align:center;
+	padding:12px 0;
+	margin:0 auto 0;
+	color:#fff;
+}
+
+.fleet-carousel .owl-theme .owl-controls .owl-nav [class*="owl-"] {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 50%;
+    padding: 0;
+	border:1px solid #a3a3a3;
+	background-color:transparent;
+	position:relative;
+}
+.cab-carousel .owl-prev:before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f104';
+    font-weight: 600;
+    color: #a3a3a3;
+    font-size: 16px;
+}
+.cab-carousel .owl-next:after {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f105';
+    font-weight: 600;
+    color: #a3a3a3;
+    font-size: 16px;
+}
+.cab-carousel .owl-nav .owl-prev {
+    position: absolute;
+    top:-90px;
+    right:220px;
+}
+.cab-carousel .owl-nav .owl-next {
+    position: absolute;
+    top:-90px;
+    left:220px;
+}
+.fleet-carousel .owl-theme .owl-controls .owl-nav [class*="owl-"]:hover{
+	color:#fff;
+	background-color:#a3a3a3;
+}
+.cab-carousel .owl-nav .owl-prev:hover:before{
+	color:#fff;
+}
+.cab-carousel .owl-nav .owl-next:hover:after{
+	color:#fff;
+}
+/* 11. Our Services */
+.cab-services{
+	float:left;
+	width:100%;
+	padding:130px 0 80px;
+}
+.cab-services .tj-heading-style{
+	text-align:center;
+	margin:0 auto 70px;
+	width:550px;
+}
+.cab-services .tj-heading-style p{
+	line-height:24px;
+	color:#777777;
+	font-size:15px;
+	font-weight:400;
+	margin:0;
+}
+.cab-services  .cab-service-box {
+	width:100%;
+	float:left;
+	position:relative;
+	text-align:center;
+	border:1px solid #ececec;
+	margin-bottom:60px;
+}
+.cab-services .cab-service-box:after {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f105';
+    position: absolute;
+    bottom: -14px;
+    left:0;
+    font-weight: 600;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    line-height: 30px;
+	opacity:0;
+	visibility:hidden;
+    border-radius: 50%;
+}
+.cab-services .cab-service-box:hover{
+	box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.06);
+	-webkit-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.06);
+	-moz-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.06);
+	-o-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.06);
+	-ms-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.06);
+	-webkit-transform: translateY(0px);
+	-moz-transform: translateY(10px);
+	-ms-transform: translateY(10px);
+	-o-transform: translateY(10px);
+	transform: translateY(10px);
+	
+}
+.cab-services .cab-service-box:hover .service-thumb{
+	background-color:transparent;
+}
+.cab-services .cab-service-box:hover:after{
+	opacity:1;
+	visibility:visible;
+	left:45%;
+}
+.cab-service-box .service-thumb{
+	background-color:#f9f9f9;
+	padding:30px 0;
+	height:125px;
+	overflow:hidden;
+}
+.cab-service-box .service-thumb:hover img,
+.news-outer figure:hover img{
+	-webkit-transform: scale(0.9);
+	-moz-transform: scale(0.9);
+	-ms-transform: scale(0.9);
+	-o-transform: scale(0.9);
+	transform: scale(0.9);
+}
+.cab-service-box .service-desc{
+	width:100%;
+	float:left;
+	padding:35px 60px;
+}
+.cab-service-box .service-desc h4{
+	font-weight:500;
+	font-size:22px;
+	line-height:25px;
+	font-family:'Montserrat',sans-serif;
+	color:#444444;
+}
+.cab-service-box .service-desc p{
+	line-height:24px;
+	font-size:15px;
+	font-weight:400;
+	color:#777777;
+}
+/* End Our Services Styles */
+
+/* End Homepage 1 Styles */
+
+
+
+/* 08. Homepage 2 */
+.tj-cab-slider,.tj-slider{
+	float:left;
+	width:100%;
+}
+.tj-cab-slider .slide-item{
+	float:left;
+	width:100%;
+	position:relative;
+}
+.tj-cab-slider .slide-item:after{
+	content:'';
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background-color:rgba(19,32,43,0.8);
+}
+.tj-cab-slider .slide-item img{
+	width:100%;
+	height:auto;
+}
+.slide-item .slide-caption{
+	position:absolute;
+	left:0;
+	width:100%;
+	float:left;
+	bottom:250px;
+	z-index:999;
+}
+.slide-item .slide-inner{
+	float:left;
+	width:100%;
+	text-align:center;
+}
+.slide-item .slide-caption strong{
+	font-size:22px;
+	line-height:26px;
+	font-style:italic;
+	color:#dfdfdf;
+	display:block;
+	font-weight:normal;
+}
+.slide-item .slide-caption h2{
+	font-size:50px;
+	line-height:60px;
+	color:#fafafa;
+	font-weight:600;
+	font-family:'Montserrat',sans-serif;
+	margin-bottom:25px;
+}
+.slide-caption .slide-btns,.banner-inner .banner-btns{
+	float:left;
+	width:100%;
+}
+.slide-caption .slide-btns .btn-style-1,
+.slide-caption .slide-btns .btn-style-2,
+.banner-inner .banner-btns .btn-style-1,
+.banner-inner .banner-btns .btn-style-2{
+	color:#fff;
+	text-transform:capitalize;
+	display:inline-block;
+	width:155px;
+	margin:0 auto 0;
+	text-align:center;
+	padding:15px 0;
+}
+.slide-item .slide-caption .slide-btns .btn-style-2,
+.banner-caption .banner-inner .banner-btns .btn-style-2{
+	background-color:transparent;
+	border:2px solid #fff;
+	margin-left:8px;
+	padding:13px 0;
+}
+.tj-cab-slider .owl-prev:before{
+	font-family:'Font Awesome 5 Free';
+	content: '\f104';
+	font-weight: 600;
+	color:#fff;
+	font-size:16px;
+}
+.tj-cab-slider .owl-prev{
+	position:absolute;
+	top:35%;
+	left:55px;
+}
+.tj-cab-slider .owl-next:after{
+	font-family:'Font Awesome 5 Free';
+	content:'\f105';
+	font-weight: 600;
+	color:#fff;
+	font-size:16px;
+}
+.tj-cab-slider .owl-next{
+	position:absolute;
+	top:35%;
+	right:55px;
+}
+.tj-slider .owl-theme .owl-controls .owl-nav [class*="owl-"] {
+    width:45px;
+    height: 45px;
+    line-height:45px;
+    border-radius:50%;
+    padding:0;
+	background-color:#9a9a9a;
+}
+.tj-slider .owl-theme .owl-controls .owl-nav [class*="owl-"]:hover{
+	opacity:0.7;
+	color:#fff;
+}
+.tj-cab-slider .owl-prev:hover:before,
+.tj-cab-slider .owl-next:hover:after{
+	color:#fff;
+}
+.tj-services{
+	float:left;
+	width:100%;
+	padding:120px 0 70px;
+}
+.tj-services .tj-service-outer{
+	float:left;
+	width:100%;
+	margin:60px 0 0;
+}
+.tj-services .service-item{
+	float:left;
+	width:344px;
+	margin:0 30px 55px 0;
+}
+.tj-services .service-item img{
+	float:left;
+	margin-right:28px;
+}
+.tj-services .service-item .service-info-box{
+	overflow:hidden;
+	margin-left:28px;
+}
+.tj-service-outer .service-item .service-info-box h4{
+	font-family:'Montserrat',sans-serif;
+	font-size:22px;
+	line-height:22px;
+	color:#444444;
+	font-weight:500;
+	margin:0 0 15px;
+}
+.tj-service-outer .service-item .service-info-box p{
+	font-size:15px;
+	line-height:25px;
+	color:#777777;
+	font-weight:400;
+	margin:0;
+}
+.service-ad-box{
+	float:left;
+	border:1px solid #e7e7e7;
+	padding:4px 4px;
+	border-radius:4px;
+}
+.service-ad-box .fleet-box img{
+	width:auto;
+	height:auto;
+}
+.service-ad-box .fleet-box h4{
+	font-size:23px;
+}
+.service-ad-box .fleet-box .ad-info{
+	width:100%;
+	float:left;
+	text-align:center;
+}
+
+.news-box figure:hover img,
+.fleet-grid-box .fleet-thumb:hover img,
+.fleet-list-box .fleet-thumb:hover img,
+.cab-box figure:hover img,.blog-outer .blog-thumb:hover img{
+	-webkit-transform: scale(1.2);
+	-moz-transform: scale(1.2);
+	-ms-transform: scale(1.2);
+	-o-transform: scale(1.2);
+	transform: scale(1.2);
+}
+.fleet-grid,.fleet-list{
+	width:100%;
+	float:left;
+	padding:60px 0 15px;
+}
+.fleet-grid .fleet-grid-box,
+.fleet-list .fleet-list-box{
+	width:100%;
+	float:left;
+	margin-bottom:60px;
+}
+.fleet-grid-box .fleet-thumb{
+	width:100%;
+	float:left;
+	position:relative;
+	overflow:hidden;
+}
+.fleet-list-box .fleet-thumb{
+	position:relative;
+	float: left;
+	overflow: hidden;
+}
+.fleet-grid-box .fleet-thumb:after,
+.fleet-list-box .fleet-thumb:after{
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    transform: rotate(360deg);
+    opacity: 0.3;
+    transition: all 0.5s ease-in-out;
+    visibility: hidden;
+}
+.fleet-grid-box .fleet-thumb:hover:after,
+.fleet-list-box .fleet-thumb:hover:after {
+    transition: all 0.5s ease-in-out;
+    transform: rotate(180deg);
+    visibility: visible;
+}
+.fleet-grid-box img {
+    width: 100%;
+    height: auto;
+}
+.fleet-grid-box .price-box{
+	position:absolute;
+	top:15px;
+	right:20px;
+}
+.fleet-grid-box .price-box strong,
+.fleet-list-box .fleet-text .price-box strong{
+	font-family:'Montserrat',sans-serif;
+	font-weight:600;
+	display:block;
+	font-size:28px;
+}
+.fleet-grid-box .price-box strong span,
+.fleet-list-box .price-box strong span{
+	font-size:14px;
+	color:#444444;
+}
+.fleet-grid-box .rated{
+	position:absolute;
+	top:20px;
+	left:20px;
+	font-family:'Montserrat',sans-serif;
+	text-transform:uppercase;
+	color:#fff;
+	font-size:11px;
+	font-weight:500;
+	background-color:#444444;
+	padding:7px 10px;
+}
+.fleet-info-box{
+	width:100%;
+	float:left;
+}
+.fleet-info-box .fleet-info{
+	width:360px;
+	margin-top:40px;
+	float:left;
+}
+.fleet-info-box  h3,.fleet-list-box .fleet-text h3{
+	font-family:'Montserrat',sans-serif;
+	font-size:18px;
+	font-weight:600;
+	text-transform:capitalize;
+	color:#444444;
+	float:left;
+	margin:0;
+}
+.fleet-info-box .fleet-info span{
+	float:right;
+}
+.fleet-info-box .fleet-info ul,
+.fleet-list-box .fleet-text ul{
+	list-style:none;
+	margin:0;
+	padding:15px 0 0;
+	width:100%;
+	float:left;
+}
+.fleet-info-box .fleet-info ul li,
+.fleet-list-box .fleet-text ul li{
+	display:inline-block;
+	padding:0 16px;
+	color:#666666;
+	font-size:13px;
+	text-transform:uppercase;
+	line-height:24px;
+	position:relative;
+}
+.fleet-info-box .fleet-info ul li:first-child{
+	padding:0 16px 0 0;
+}
+.fleet-info-box .fleet-info ul li:before,
+.fleet-list-box .fleet-text ul li:before{
+	content:'|';
+	position:absolute;
+	right:-5px;
+}
+.fleet-info-box .fleet-info ul li:last-child:before,
+.fleet-list-box .fleet-text ul li:last-child:before{
+	content:'';
+	display:none;
+}
+.fleet-info-box .fleet-info ul li i,
+.fleet-list-box .fleet-text ul li i{
+	padding-right:6px;
+}
+.fleet-info-box  a,
+.fleet-list-box a{
+    float: right;
+    display: block;
+    border: 2px solid;
+    text-align: center;
+    padding: 15px 25px;
+    margin-top: 40px;
+    font-weight: 600;
+    font-family: 'Montserrat',sans-serif;
+	position:relative;
+}
+
+.fleet-list-box img{
+	float:left;
+	width:auto;
+}
+.fleet-list-box .fleet-text{
+	border:1px solid #eaeaea;
+	border-left:transparent;
+	padding:40px 25px 40px 35px;
+	overflow:hidden;
+}
+.fleet-list .fleet-text h3{
+	float:none;
+	clear:both;
+}
+.fleet-list-box .fleet-text p{
+	font-size:15px;
+	line-height:24px;
+	color:#777777;
+	margin:0;
+}
+.fleet-list .fleet-list-box a{
+	float:left;
+	margin-top:28px;
+}
+.fleet-list-box span{
+	margin:15px 0 15px;
+	display:inline-block;
+}
+.fleet-text .price-box{
+	float:left;
+	width:100%;
+}
+.fleet-text .price-box .rated{
+	float:left;
+	margin:0;
+	display:block;
+	font-family:'Montserrat',sans-serif;
+	text-transform:uppercase;
+	color:#fff;
+	font-size:11px;
+	font-weight:500;
+	background-color:#444444;
+	padding:7px 10px;
+	
+}
+.fleet-list  .fleet-text .price-box strong{
+	float:right;
+	line-height:15px;
+	margin-bottom:5px;
+}
+.fleet-list .fleet-list-box .fleet-text ul{
+	padding:10px 0 0 ;
+}
+.fleet-list .fleet-list-box .fleet-text ul li{
+	padding:0 14px;
+}
+.fleet-list-box .fleet-text ul li:first-child{
+	padding:0 14px 0 0;
+}
+
+/* 13. Fleet Detail */
+.fleet-detail{
+	float:left;
+	width:100%;
+	padding:140px 0 110px;
+}
+.fleet-features{
+	float:left;
+	width:100%;
+	border:1px solid #ebebeb;
+	padding:30px 25px;
+}
+.fleet-features ul{
+	list-style:none;
+	margin:0;
+	padding:0
+}
+.fleet-features ul li{
+	display:block;
+	line-height:40px;
+	color:#666666;
+	font-size:15px;
+	text-transform:uppercase;
+}
+.fleet-features ul li i{
+	margin-right:15px;
+}
+.book_fleet a{
+	display:block;
+	color:#fff;
+	width:150px;
+	text-align:center;
+	padding:15px 0;
+	font-family:'Montserrat',sans-serif;
+	font-weight:500;
+	margin:15px auto 0;
+}
+.fleet-box{
+	width:100%;
+	float:left;
+	position:relative;
+}
+.fleet-box  img{
+	width:100%;
+	height:auto;
+}
+.fleet-box .ad-info{
+	top:0;
+	left:0;
+	position:absolute;
+	padding:80px 20px;
+}
+.fleet-box .ad-info h4{
+	font-family:'Montserrat',sans-serif;
+	font-weight:600;
+	color:#fff;
+	font-size:22px;
+	text-transform:capitalize;
+}
+.fleet-box .ad-info .price{
+	font-family:'Montserrat',sans-serif;
+	font-weight:600;
+	color:#fff;
+	display:block;
+	font-size:50px;
+	text-align:center;
+}
+.fleet-box .ad-info h5{
+	font-family:'Montserrat',sans-serif;
+	font-weight:600;
+	color:#fff;
+	font-size:18px;
+}
+.fleet-box .ad-info .book_fleet a{
+	margin-top:30px;
+}

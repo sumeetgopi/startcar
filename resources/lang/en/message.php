@@ -1,0 +1,47 @@
+<?php
+    return [
+        'server_error' => 'Internal server error',
+        'status' => 'Status updated successfully',
+        'deleted' => 'Delete successfully',
+        'token_expired' => 'Token expired',
+        'token_invalid' => 'Token invalid',
+        'token_blacklisted' => 'Token blacklisted',
+        'token_not_provided' => 'Token not provided',
+        'logout' => 'Logout successfully',
+        'invalid_otp' => 'Invalid otp',
+        'invalid_details' => 'Invalid Details',
+        'product_already_exist' => 'Product is already exist into cart',
+        'add_to_cart' => 'Product added into cart successfully',
+        'cart_updated' => 'Cart updated successfully',
+        'cart_deleted' => 'Product delete from cart successfully',
+        'add_address' => 'Address added successfully',
+        'edit_address' => 'Address updated successfully',
+        'delete_address' => 'Address deleted successfully',
+        'cart_empty' => 'Cart is empty',
+        'order_placed' => 'Order placed successfully',
+        'apply_coupon' => 'Coupon applied successfully',
+        'invalid_code' => 'Invalid coupon code',
+        'already_code_used' => 'This coupon code is already used',
+        'cashback_reedem_upto' => 'You can redeem upto maximum Rs :amount as cashback in single order',
+        'min_order_amount_for_cb' => 'You can redeem cashback with minimum order of Rs :amount',
+        'apply_coupon_min_order_amount' => 'You can apply coupon with minimum order of Rs :amount',
+        'not_sufficent_cb_amount' => 'You have Rs :amount in your cashback account and your redeem cashback amount is Rs :cb_amount',
+        'order_not_found' => 'Order not found',
+        'order_on_way' => 'Your order is on the way',
+        'order_already_canceled' => 'Order is already canceled',
+        'order_canceled' => 'Order canceled successfully',
+        'sms_otp' => 'Dear Customer, Your OTP to login at Karyanaa App is :otp_code. Use this OTP for verification.',
+        
+        'sms_order_placed_heading' => 'Order Confirmed',
+        'sms_order_placed' => 'Dear Customer, Thanks for ordering at Karyanaa. Your order is confirmed and will be delivered in next 1 day. Your Order no is :order_number amounting Rs.:order_total_amount/-. Have a great day ahead !',
+
+        'sms_order_delivered_heading' => 'Order Delivered',
+        'sms_order_delivered' => 'Dear Customer, Your order at Karyana will be delivered today. Order no: :order_number amounting Rs.:order_total_amount/-. Have a great day ahead !',
+        
+        'sms_order_completed_heading' => 'Order Completed',
+        'sms_order_completed' => 'Dear Customer, Thanks for shopping with Karyanaa. Your order was successfully delivered. We hope you have a lovely day.',
+        
+        'sms_order_unsuccess_delivery_heading' => 'Order Missed',
+        'sms_order_unsuccess_delivery' => 'Dear Customer, It looks we missed it, Your Order no: :order_number amounting Rs.:order_total_amount/- from Karyanaa was not delivered today. We will try to deliver it tomorrow again.',
+    ];
+?>

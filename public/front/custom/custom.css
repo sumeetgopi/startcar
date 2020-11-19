@@ -1,0 +1,17 @@
+.error {
+    color: red;
+    font-size: 11px;
+    text-align: left;
+    padding: 0px;
+    margin: 0px;
+}
+
+.__nav a.active, .__nav a:hover {
+    background: #ef540f !important;
+    border-color: #ef540f !important;
+    color: #fff;
+}
+
+.form-section .form-control {
+    text-transform: none !important;
+}

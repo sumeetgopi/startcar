@@ -1,0 +1,38 @@
+Reports
+======
+Option to export the list of draft, all, pending, delivered, completed & canceled orders
+
+Tabular Reports:
+With the help of date range the client should be able to see the following
+1. Total No Orders in the date range
+2. Total No of products ordered
+3. Cash payment orders
+4. Online payment orders
+5. Total amount of all orders
+there should be a button here on clicking on that the summary report should be shown which will show all the orders in the same date range showing in the same format as showing in orders.
+
+
+Download Report:
+With the help of the date range following information will be gathered
+1. Total Downloads
+2. Client Registered
+3. Total Orders
+4. Total Amount
+
+
+Repeat Order Report
+With the help of the date range following information will be gathered
+1. Customer with single order (figure & percentage)
+2. Customer with 1-5 orders (figure & percentage)
+3. Customer with 5-10 orders (figure & percentage)
+4. Customer with more than 10 orders (figure & percentage)
+clicking on the figure will show the list of customers in that range, with Name, Email, Mbl, Address, open the list in new tab.
+
+
+Login Report
+With the help of the date range following information will be gathered
+1. Customer logged in last 15 days (figure & percentage)
+2. Customer logged in between 15-30 days (figure & percentage)
+3. Customer logged in between 30-60 days (figure & percentage)
+4. Customer logged in mora than 60days (figure & percentage)
+clicking on the figure will show the list of customers in that range, with Name, Email, Mbl, Address, open the list in new tab.

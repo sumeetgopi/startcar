@@ -1,0 +1,27 @@
+1) Notifications
+     App Notifications
+     Web Notifications
+
+2) SMS Sending
+
+3) Banner Update - done
+
+4) Similar Products should be related to the selected product - done
+
+5) User Profile (Api) - done
+
+6) Consolidate Order Report
+
+7) Edit Invoice
+
+8) Read Policy - done
+
+9) Terms and Conditions - done
+
+10) About Us - done
+
+11) Send SMS to customer who have order in their cart
+
+12) Api for order delete - done 
+
+13) Payment Gateway Implimentation

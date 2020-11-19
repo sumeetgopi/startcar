@@ -1,0 +1,51 @@
+coupon name
+coupon code
+description
+start_date 
+end_date
+status
+discount_type -- fixed, percent
+type -- coupon, cashback
+
+
+cashback will add when code is filled
+applied on order
+
+$cashback amount = 2000;
+if($cashback >= $maxCashback amount) {
+	$cashbackamount = $maxcashamount
+}
+
+
+
+cashback fields
+===============
+cashback name
+cashback code
+description
+status -- active, inactive
+cashback amount
+
+
+coupon fields
+=============
+coupon name
+coupon code
+description
+status -- active, inactive
+expiry date
+apply type -- single, multiple
+discount type -- fixed, percent
+
+in case of fixed, fields are
+=============================
+order amount upto
+coupon amount -- fixed
+
+in case of percent, fields are
+==============================
+order amount upto
+coupon amount -- percent
+order amount more than 
+coupon amount -- fixed
+
