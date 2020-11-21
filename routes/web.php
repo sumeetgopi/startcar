@@ -51,6 +51,14 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('category/service', 'CategoryController@service')->name('category.service');
     // category route end
 
+     // customer route start
+     Route::resource('customer', 'CustomerController');
+     Route::post('customer/status/{id?}', 'CustomerController@status')->name('customer.status');
+     Route::post('customer/toggle-status/{id?}/{status?}', 'CustomerController@toggleStatus')->name('customer.toggle-status');
+     Route::post('customer/toggle-all-status/{status?}', 'CustomerController@toggleAllStatus')->name('customer.toggle-all-status');
+     Route::post('customer/service', 'CustomerController@service')->name('customer.service');
+     // customer route end
+
     // order route start
     Route::resource('order', 'OrderController');
     Route::post('order/status/{id?}', 'OrderController@status')->name('order.status');
