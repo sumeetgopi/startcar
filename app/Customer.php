@@ -76,7 +76,8 @@ class Customer extends Model
         }
 
         if($request->has('keyword') && $request->get('keyword') != '') {
-            $filter .= " and (users.email like '%" . addslashes($request->get('keyword')) . "%'" .             
+            $filter .= " and (users.email like '%" . addslashes($request->get('keyword')) . "%'" .
+            " or users.address like '%" . addslashes($request->get('keyword')) . "%'".             
             " or users.mobile_number like '%" . addslashes($request->get('keyword')) . "%')";         
         }
 
