@@ -56,6 +56,8 @@
                                                             </div>
                                                         @endif
                                                     </td>
+                                                    <td><small> {!! ucfirst($row->booking_type) !!}</small>
+                                                    </td>
                                                     <td><small>From :</small> {!! $row->from_location !!}<div class="smalll"><small>To :</small>
                                                             {!! $row->to_location !!}</div>
                                                     </td>

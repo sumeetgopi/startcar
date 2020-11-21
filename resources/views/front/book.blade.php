@@ -1,5 +1,7 @@
 @include('front.layout.header2')
 
+
+
         <!-- Pagewrap Start Here -->
 <div class="content">
     <!--  Banner Start here -->
