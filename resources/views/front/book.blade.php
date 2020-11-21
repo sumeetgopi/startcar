@@ -38,7 +38,10 @@
                                     <input type="text" name="email" value="{!! $e !!}" class="form-control" placeholder="Email ID">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="mobile_number" class="form-control" placeholder="Mobile Number">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">+91</div>
+                                        <input type="text" name="mobile_number" class="form-control" placeholder="Mobile Number">
+                                    </div>
                                 </div>
                                 <div class="clearfix"></div>
 
@@ -59,10 +62,8 @@
                                 <div class="clearfix"></div>
 
                                 <div class="form-check-input">
-                                    <label>
-                                        <input type="checkbox" name="is_return_way" aria-label="Checkbox for following text input" id="return2"
+                                    <input type="checkbox" name="is_return_way" aria-label="Checkbox for following text input" id="return2"
                                                onclick="returnn()"> &nbsp; Add Return Way
-                                    </label>
                                 </div>
                                 <div id="reeturn" style="display:none">
                                     <div class="form-group">
@@ -84,7 +85,7 @@
                                         </button>
                                     </span>
                                     <input type="text" name="no_of_adult" id="quantity" class="form-control input-number"
-                                           value="10" min="1" max="100">
+                                           value="2" min="1" max="100">
                                     <span class="input-group-btn">
                                         <button type="button" class="quantity-right-plus btn btn-success btn-number"
                                                 data-type="plus" data-field="">
@@ -102,7 +103,7 @@
                                         </button>
                                     </span>
                                     <input type="text" id="quantity2" name="no_of_children" class="form-control input-number"
-                                           value="10" min="1" max="100">
+                                           value="2" min="1" max="100">
                                     <span class="input-group-btn">
                                         <button type="button" class="quantity-right-plus2 btn btn-success btn-number"
                                                 data-type="plus" data-field="">
@@ -186,7 +187,10 @@
                                     <input type="text" name="email" class="form-control" placeholder="Email ID">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="mobile_number" class="form-control" placeholder="Mobile Number">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">+91</div>
+                                        <input type="text" name="mobile_number" class="form-control" placeholder="Mobile Number">
+                                    </div>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="form-group">
@@ -224,7 +228,7 @@
                                             </button>
                                         </span>
                                     <input type="text" id="quantity" name="no_of_adult"
-                                           class="form-control input-number" value="10" min="1" max="100">
+                                           class="form-control input-number" value="2" min="1" max="100">
                                         <span class="input-group-btn">
                                             <button type="button" class="quantity-right-plus btn btn-success btn-number"
                                                     data-type="plus" data-field="">
@@ -243,7 +247,7 @@
                                             </button>
                                         </span>
                                     <input type="text" id="quantity2" name="no_of_children"
-                                           class="form-control input-number" value="10" min="1" max="100">
+                                           class="form-control input-number" value="2" min="1" max="100">
                                         <span class="input-group-btn">
                                             <button type="button"
                                                     class="quantity-right-plus2 btn btn-success btn-number" data-type="plus"

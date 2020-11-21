@@ -81,7 +81,7 @@ class Booking extends Model
             'no_of_adult' => 'required|numeric|min:1|max:100',
             'no_of_children' => 'required|numeric|min:1|max:100',
             'vehicle_category' => 'required|numeric|min:1',
-            'requirement' => 'required|min:1',
+            // 'requirement' => 'required|min:1',
         ];
 
         if(isset($inputs['is_return_way'])) {
@@ -119,7 +119,7 @@ class Booking extends Model
             'no_of_adult' => 'required|numeric|min:1|max:100',
             'no_of_children' => 'required|numeric|min:1|max:100',
             'vehicle_category' => 'required|numeric|min:1',
-            'requirement' => 'required|min:1',
+            // 'requirement' => 'required|min:1',
         ];
 
         if(isset($inputs['is_flight'])) {
