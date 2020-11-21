@@ -33,7 +33,7 @@
                         <td>{!! statusSlider('customer.status', $row->id, $row->status) !!}</td>
                         <td>
                             <a class="btn btn-primary btn-xs" href="{!! route('customer.edit', $row->id) !!}"><i class="fa fa-edit"></i> Edit</a>
-                            <a class="btn btn-xs btn-danger __drop" href="javascript:void(0);" data-url="{!! route('customer.destroy', $row->id) !!}"><i class="fa fa-trash"></i> Delete</a>
+                            <!-- <a class="btn btn-xs btn-danger __drop" href="javascript:void(0);" data-url="{!! route('customer.destroy', $row->id) !!}"><i class="fa fa-trash"></i> Delete</a> -->
                         </td>
                     </tr>
                 @endforeach

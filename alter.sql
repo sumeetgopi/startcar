@@ -170,4 +170,3 @@ create table product_tag
 
 alter table users add column rozarpay_customer_id varchar(255) default '' after id;
 alter table orders add column razorpay_order_id varchar(255) default '' after id;
-alter table users add column deleted_at timestamp null default null after updated_at;
