@@ -198,7 +198,7 @@ class Validation
         $rules = [
             'name' => 'required|min:3',
             'mobile_number' => 'required|digits:10',
-            'email' => 'required|email|',
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:3'
         ];
         return validator($inputs, $rules);
