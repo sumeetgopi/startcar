@@ -250,78 +250,64 @@
 <script>
 	$(document).ready(function(){
 
-		var quantitiy=0;
-		$('.quantity-right-plus').click(function(e){
-
-			// Stop acting like a button
+		$('.quantity-right-plus1').click(function(e){
 			e.preventDefault();
-			// Get the field name
-			var quantity = parseInt($('#quantity').val());
-
-			// If is not undefined
-
-			$('#quantity').val(quantity + 1);
-
-
-			// Increment
-
+			var quantity = parseInt($('#quantity1').val());
+			$('#quantity1').val(quantity + 1);
 		});
 
-		$('.quantity-left-minus').click(function(e){
-			// Stop acting like a button
-			e.preventDefault();
-			// Get the field name
-			var quantity = parseInt($('#quantity').val());
-
-			// If is not undefined
-
-			// Increment
-			if(quantity>0){
-				$('#quantity').val(quantity - 1);
-			}
-		});
-
-	});
-</script>
-
-<script>
-	$(document).ready(function(){
-
-		var quantitiy=0;
 		$('.quantity-right-plus2').click(function(e){
-
-			// Stop acting like a button
 			e.preventDefault();
-			// Get the field name
-			var quantity2 = parseInt($('#quantity2').val());
+			var quantity = parseInt($('#quantity2').val());
+			$('#quantity2').val(quantity + 1);
+		});
 
-			// If is not undefined
+		$('.quantity-right-plus3').click(function(e){
+			e.preventDefault();
+			var quantity = parseInt($('#quantity3').val());
+			$('#quantity3').val(quantity + 1);
+		});
 
-			$('#quantity2').val(quantity2 + 1);
+		$('.quantity-right-plus4').click(function(e){
+			e.preventDefault();
+			var quantity = parseInt($('#quantity4').val());
+			$('#quantity4').val(quantity + 1);
+		});
 
-
-			// Increment
-
+		$('.quantity-left-minus1').click(function(e){
+			e.preventDefault();
+			var quantity = parseInt($('#quantity1').val());
+			if(quantity>0){
+				$('#quantity1').val(quantity - 1);
+			}
 		});
 
 		$('.quantity-left-minus2').click(function(e){
-			// Stop acting like a button
 			e.preventDefault();
-			// Get the field name
-			var quantity2 = parseInt($('#quantity2').val());
+			var quantity = parseInt($('#quantity2').val());
+			if(quantity>0){
+				$('#quantity2').val(quantity - 1);
+			}
+		});
 
-			// If is not undefined
+		$('.quantity-left-minus3').click(function(e){
+			e.preventDefault();
+			var quantity = parseInt($('#quantity3').val());
+			if(quantity>0){
+				$('#quantity3').val(quantity - 1);
+			}
+		});
 
-			// Increment
-			if(quantity2>0){
-				$('#quantity2').val(quantity2 - 1);
+		$('.quantity-left-minus4').click(function(e){
+			e.preventDefault();
+			var quantity = parseInt($('#quantity4').val());
+			if(quantity>0){
+				$('#quantity4').val(quantity - 1);
 			}
 		});
 
 	});
-</script>
 
-<script>
 	$('.__nav_vehicle_category a').click(function(e) {
 		e.preventDefault();
 		$('.__nav_vehicle_category a').each(function(i, v) {

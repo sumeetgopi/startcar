@@ -15,3 +15,7 @@
 .form-section .form-control {
     text-transform: none !important;
 }
+
+.bootstrap-timepicker-widget table td input {
+    border: none !important;
+}

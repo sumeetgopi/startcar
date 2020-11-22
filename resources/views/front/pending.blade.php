@@ -84,7 +84,7 @@
                                                 </tr>
 
                                                 <tr id="collapse{!! $i !!}" class="collapse hide">
-                                                    <td colspan="5">
+                                                    <td colspan="6">
                                                         <div style="width: 100%;">
                                                             <div class="collapse show" aria-labelledby="heading{!! $i !!}"
                                                                 data-parent="#accordion" style="background:#fff">

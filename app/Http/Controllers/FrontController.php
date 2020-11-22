@@ -15,11 +15,19 @@ class FrontController extends Controller
 
     public function book(Request $request) {
         $e = $request->get('e', '');
+        $m = '';
+        if(isAuthCustomerLogin()) {
+            $e = authCustomerEmail();
+            $m = authCustomerMobile();
+        }
+
+
+
         $fl = $request->get('fl', '');
         $tl = $request->get('tl', '');
         $vc = $request->get('vc', '');
         $t = $request->get('t', '');
-        return view('front.book', compact('e', 'fl', 'tl', 'vc', 't'));
+        return view('front.book', compact('e', 'fl', 'tl', 'vc', 't', 'm'));
     }
 
     public function bookByRoute(Request $request) {

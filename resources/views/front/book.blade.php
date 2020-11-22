@@ -30,7 +30,7 @@
 
                     <!-- Tab content -->
                     <div class="wrapper_tabcontent">
-                        <div id="route" class="tabcontent active">
+                        <div id="route" class="tabcontent  {!! ($t == '' || $t == 'route') ? 'active' : '' !!}">
                             <div class="tab-sec" id="">
                                 {!! Form::open(['route' => 'front.book-by-route', 'method' => 'post', 'id' => 'ajax-submit', 'files' => 'true', 'class' => 'form-inline']) !!}
 
@@ -39,8 +39,10 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <div class="input-group-addon">+91</div>
-                                        <input type="text" name="mobile_number" class="form-control" placeholder="Mobile Number">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">+91</span>
+                                        </div>
+                                        <input type="text" name="mobile_number" value="{!! $m !!}" class="form-control" placeholder="Mobile Number">
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -54,10 +56,10 @@
                                 <div class="clearfix"></div>
 
                                 <div class="form-group">
-                                    <input type="text" name="transfer_date" class="form-control __from_date" value="{!! date('d-m-Y') !!}" placeholder="Transfer Date">
+                                    <input readonly="readonly" type="text" name="transfer_date" class="form-control __from_date" value="{!! date('d-m-Y') !!}" placeholder="Transfer Date">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="transfer_time" class="form-control timepicker" autocomplete="off" id="time" placeholder="Time">
+                                    <input readonly="readonly" type="text" name="transfer_time" class="form-control timepicker" autocomplete="off" id="time" placeholder="Time">
                                 </div>
                                 <div class="clearfix"></div>
 
@@ -67,11 +69,11 @@
                                 </div>
                                 <div id="reeturn" style="display:none">
                                     <div class="form-group">
-                                        <input type="text" name="return_date" class="form-control __to_date" value="{!! date('d-m-Y') !!}" placeholder="Transfer Date">
+                                        <input readonly="readonly" type="text" name="return_date" class="form-control __to_date" value="{!! date('d-m-Y') !!}" placeholder="Transfer Date">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="return_time" class="form-control timepicker" autocomplete="off" id="time"
-                                               name="transfer[trip_to][time]" value="" placeholder="Time" required="">
+                                        <input readonly="readonly" type="text" name="return_time" class="form-control timepicker" autocomplete="off" id="time"
+                                               value="" placeholder="Time" required="">
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -79,15 +81,15 @@
                                 <div class="form-group">
                                     <strong>No. of Adults</strong>
                                     <span class="input-group-btn">
-                                        <button type="button" class="quantity-left-minus btn btn-danger btn-number"
+                                        <button type="button" class="quantity-left-minus1 btn btn-danger btn-number"
                                                 data-type="minus" data-field="">
                                             -
                                         </button>
                                     </span>
-                                    <input type="text" name="no_of_adult" id="quantity" class="form-control input-number"
+                                    <input type="text" name="no_of_adult" id="quantity1" class="form-control input-number"
                                            value="2" min="1" max="100">
                                     <span class="input-group-btn">
-                                        <button type="button" class="quantity-right-plus btn btn-success btn-number"
+                                        <button type="button" class="quantity-right-plus1 btn btn-success btn-number"
                                                 data-type="plus" data-field="">
                                             +
                                         </button>
@@ -180,21 +182,23 @@
                             </div>
                         </div>
 
-                        <div id="hour" class="tabcontent">
+                        <div id="hour" class="tabcontent {!! ($t == 'hour') ? 'active' : '' !!}">
                             <div class="tab-sec" id="">
                                 {!! Form::open(['route' => 'front.book-per-hour', 'method' => 'post', 'id' => 'ajax-submit2', 'files' => 'true', 'class' => 'form-inline']) !!}
                                 <div class="form-group">
-                                    <input type="text" name="email" class="form-control" placeholder="Email ID">
+                                    <input type="text" name="email" value="{!! $e !!}" class="form-control" placeholder="Email ID">
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <div class="input-group-addon">+91</div>
-                                        <input type="text" name="mobile_number" class="form-control" placeholder="Mobile Number">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">+91</span>
+                                        </div>
+                                        <input type="text" name="mobile_number" value="{!! $m !!}" class="form-control" placeholder="Mobile Number">
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="form-group">
-                                    <input type="text" name="from_location" class="form-control" placeholder="Start Destination">
+                                    <input type="text" name="from_location" value="{!! $fl !!}" class="form-control" placeholder="Start Destination">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" name="to_location" class="form-control" placeholder="End Destination">
@@ -202,18 +206,18 @@
                                 <div class="clearfix"></div>
                                 <div><strong>Start of Transfer</strong></div>
                                 <div class="form-group">
-                                    <input type="text" name="transfer_date" class="form-control __from_date" placeholder="Date">
+                                    <input readonly="readonly" type="text" name="transfer_date" class="form-control __from_date" value="{!! date('d-m-Y') !!}" placeholder="Date">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="transfer_time" class="form-control timepicker" autocomplete="off" id="time" placeholder="Time">
+                                    <input readonly="readonly" type="text" name="transfer_time" class="form-control timepicker" autocomplete="off" id="time" placeholder="Time">
                                 </div>
 
                                 <div><strong>End of Transfer</strong></div>
                                 <div class="form-group">
-                                    <input type="text" name="return_date" class="form-control __to_date" placeholder="Date">
+                                    <input readonly="readonly" type="text" name="return_date" class="form-control __to_date" value="{!! date('d-m-Y') !!}" placeholder="Date">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control timepicker" autocomplete="off" id="time"
+                                    <input readonly="readonly" type="text" class="form-control timepicker" autocomplete="off" id="time"
                                            name="return_time" value="" placeholder="Time" required="">
                                 </div>
 
@@ -222,15 +226,15 @@
                                 <div class="form-group">
                                     <strong>No. of Adults</strong>
                                         <span class="input-group-btn">
-                                            <button type="button" class="quantity-left-minus btn btn-danger btn-number"
+                                            <button type="button" class="quantity-left-minus3 btn btn-danger btn-number"
                                                     data-type="minus" data-field="">
                                                 -
                                             </button>
                                         </span>
-                                    <input type="text" id="quantity" name="no_of_adult"
+                                    <input type="text" id="quantity3" name="no_of_adult"
                                            class="form-control input-number" value="2" min="1" max="100">
                                         <span class="input-group-btn">
-                                            <button type="button" class="quantity-right-plus btn btn-success btn-number"
+                                            <button type="button" class="quantity-right-plus3 btn btn-success btn-number"
                                                     data-type="plus" data-field="">
                                                 +
                                             </button>
@@ -241,16 +245,16 @@
                                 <div class="form-group">
                                     <strong>No. of Children</strong>
                                         <span class="input-group-btn">
-                                            <button type="button" class="quantity-left-minus2 btn btn-danger btn-number"
+                                            <button type="button" class="quantity-left-minus4 btn btn-danger btn-number"
                                                     data-type="minus" data-field="">
                                                 -
                                             </button>
                                         </span>
-                                    <input type="text" id="quantity2" name="no_of_children"
+                                    <input type="text" id="quantity4" name="no_of_children"
                                            class="form-control input-number" value="2" min="1" max="100">
                                         <span class="input-group-btn">
                                             <button type="button"
-                                                    class="quantity-right-plus2 btn btn-success btn-number" data-type="plus"
+                                                    class="quantity-right-plus4 btn btn-success btn-number" data-type="plus"
                                                     data-field="">
                                                 +
                                             </button>

@@ -7,16 +7,10 @@ f8kao4f2zqeu
 Rajiv@Kar1
 
 
-Total App Downloads
-Total Orders
-Delivered Orders
-Pending Orders
-Canceled Orders
-Total Orders Amount - completed
-Online Payment Amount
-Cash Payment Amount
-Pending Amount - remove 
-Total Product Range - count 
+4
+5
+9
+10
+14
 
-notification api
-tag working in product and search
+
