@@ -112,6 +112,10 @@ $('body').on('change', '.__check_all', function() {
     }
 });
 
+$('body').on('change keyup', 'input', function() {
+    $(this).parent().find('.error').slideUp('slow');
+});
+
 $('body').on('change', '.__check', function() {
     if ($(this).is(':checked')) {
         $(this).parent().parent().addClass('bg-warning text-white');
