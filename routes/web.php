@@ -27,6 +27,7 @@ Route::post('login', 'FrontController@login')->name('front.login');
 Route::post('register', 'FrontController@register')->name('front.register');
 Route::post('logout', 'FrontController@logout')->name('front.logout');
 Route::get('test', 'FrontController@test')->name('front.test');
+Route::get('gurpreet', 'FrontController@gurpreetemail')->name('front.gurpreet');
 
 Route::get('/', function () {
     return redirect()->route('front.home');

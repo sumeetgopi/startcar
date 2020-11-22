@@ -416,4 +416,22 @@ class FrontController extends Controller
             dd($e->getMessage());
         }
     }
+
+    public function gurpreetemail()
+    {
+        // send mail code start
+               $email = "sumeetgopi13@gmail.com";
+               $password = rand(111111, 999999);
+               $subject = 'Login Details';
+               
+               $data = ['subject' => $subject, 'username' => $email , 'password' => $password];
+               Mail::send('front.mail.registerDetails', ['data'=>$data] , function($message) use ($data, $email){
+                $message->from(env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME'));
+                
+                $message->to($email);
+                $message->subject($data['subject']);
+            });            
+            // send mail code end
+            print_r('email code run');
+    }
 }
