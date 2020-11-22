@@ -97,18 +97,26 @@ class FrontController extends Controller
                 \Auth::loginUsingId($id);
 
                 $email = $inputs['email'];
-                $data = [
+                /* $data = [
                     'subject' => 'Login Details',
                     'username' => $email,
                     'password' => $password,
                     'url' => route('front.home')
                 ];
 
-                \Mail::send('front.mail.register', compact('data'), function ($message) use ($data, $email) {
+                 \Mail::send('front.mail.register', compact('data'), function ($message) use ($data, $email) {
                     $message->from(env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME'));
                     $message->to($email);
                     $message->subject($data['subject']);
-                });
+                }); */
+
+                // send email start
+                $subject = "Login Info";
+                $msg = "Username/Email: $email\nPassword: $password";
+                $msg = wordwrap($msg, 70);
+                mail($email, $subject, $msg);
+                // send mail end
+
             }
             // check email code end
         }
@@ -199,7 +207,7 @@ class FrontController extends Controller
             \Auth::loginUsingId($id);
 
             $email = $inputs['email'];
-            $data = [
+           /*  $data = [
                 'subject' => 'Login Details',
                 'username' => $email,
                 'password' => $password,
@@ -210,7 +218,14 @@ class FrontController extends Controller
                 $message->from(env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME'));
                 $message->to($email);
                 $message->subject($data['subject']);
-            });
+            }); */
+
+            // send email start
+            $subject = "Login Info";
+            $msg = "Username/Email: $email\nPassword: $password";
+            $msg = wordwrap($msg, 70);
+            mail($email, $subject, $msg);
+            // send mail end
         }
         // check email code end
 
@@ -421,11 +436,18 @@ class FrontController extends Controller
             ];
 
             try {
-                \Mail::send('front.mail.register', compact('data'), function ($message) use ($data, $email) {
+                /* \Mail::send('front.mail.register', compact('data'), function ($message) use ($data, $email) {
                     $message->from(env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME'));
                     $message->to($email);
                     $message->subject($data['subject']);
-                });
+                }); */
+
+                // send email start
+                $subject = "Login Info";
+                $msg = "Username/Email: $email\nPassword: $password";
+                $msg = wordwrap($msg, 70);
+                mail($email, $subject, $msg);
+                // send mail end
             }
             catch(\Exception $e) {
                 dd($e->getMessage());
