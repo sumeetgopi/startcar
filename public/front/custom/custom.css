@@ -19,3 +19,18 @@
 .bootstrap-timepicker-widget table td input {
     border: none !important;
 }
+
+.__mobile .error {
+    position: absolute !important;
+    bottom: -25px !important;
+}
+
+.search-section .tab-sec .form-inline .form-group {
+    vertical-align: top !important;
+    margin-bottom: 15px !important;
+}
+
+.search-section .tab-sec .form-inline .form-control {
+    height: 38px !important;
+    border-radius: 5px !important;
+}

@@ -21,8 +21,6 @@ class FrontController extends Controller
             $m = authCustomerMobile();
         }
 
-
-
         $fl = $request->get('fl', '');
         $tl = $request->get('tl', '');
         $vc = $request->get('vc', '');
@@ -278,6 +276,10 @@ class FrontController extends Controller
 
     public function pending() 
     {
+        if(!isAuthCustomerLogin()) {
+            return redirect()->route('front.home');
+        }
+        
         $customerId = authCustomerId();
         $result = (new Booking)->pending($customerId);
         return view('front.pending', compact('result'));
@@ -285,6 +287,10 @@ class FrontController extends Controller
 
     public function upcoming() 
     {
+        if(!isAuthCustomerLogin()) {
+            return redirect()->route('front.home');
+        }
+
         $customerId = authCustomerId();
         $result = (new Booking)->upcoming($customerId);
         return view('front.upcoming', compact('result'));
@@ -292,6 +298,10 @@ class FrontController extends Controller
 
     public function past() 
     {
+        if(!isAuthCustomerLogin()) {
+            return redirect()->route('front.home');
+        }
+
         $customerId = authCustomerId();
         $result = (new Booking)->past($customerId);
         return view('front.past', compact('result'));
@@ -302,10 +312,18 @@ class FrontController extends Controller
     }
 
     public function reward() {
+        if(!isAuthCustomerLogin()) {
+            return redirect()->route('front.home');
+        }
+
         return view('front.reward');
     }
     
     public function setting() {
+        if(!isAuthCustomerLogin()) {
+            return redirect()->route('front.home');
+        }
+
         return view('front.setting');
     }
 
@@ -375,6 +393,10 @@ class FrontController extends Controller
     public function logout()
     {
         try {
+            if(!isAuthCustomerLogin()) {
+                return redirect()->route('front.home');
+            }
+            
             \Auth::logout();
             $extra['redirect'] = route('front.home');
             return jsonResponse(true, 201, '', $extra);

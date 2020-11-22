@@ -45,7 +45,8 @@
 										@if(isset($result) && count($result) > 0)
                                             @foreach($result as $i => $row)
 												<tr>
-													<td>{!! $row->booking_number !!} 
+													<td>
+														{!! $row->booking_number !!} <small>({!! frontBookingType($row->booking_type) !!})</small>
 														<div class="smalll"><small>Created: {!! dateFormat($row->created_at, 'M d, Y h:i A') !!}</small></div>
 													</td>
 													<td>{!! dateFormat($row->transfer_datetime, 'M d, Y h:i A') !!}

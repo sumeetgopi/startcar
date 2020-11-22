@@ -711,6 +711,16 @@ function webCancelReason($type = null) {
     return $types;
 }
 
+function frontBookingType($type = null) {
+    $types = [
+        'route' => 'Book By Route',
+        'hour' => 'Book Per Hour',
+    ];
+
+    if($type != '') { return $types[$type]; }
+    return $types;
+}
+
 function replaceSpecialChar($str = '') {
     $unwanted_array = array(    'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
                             'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',

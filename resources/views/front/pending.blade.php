@@ -44,7 +44,7 @@
                                             @foreach($result as $i => $row)
                                                 <tr>
                                                     <td>
-                                                        {!! $row->booking_number !!} 
+                                                        {!! $row->booking_number !!} <small>({!! frontBookingType($row->booking_type) !!})</small>
                                                         <div class="smalll"><small>Created: {!! dateFormat($row->created_at, 'M d, Y h:i A') !!}</small>
                                                         </div>
                                                     </td>
@@ -56,7 +56,6 @@
                                                             </div>
                                                         @endif
                                                     </td>
-                                                    <td><small> {!! ucfirst($row->booking_type) !!}</small>
                                                     </td>
                                                     <td><small>From :</small> {!! $row->from_location !!}<div class="smalll"><small>To :</small>
                                                             {!! $row->to_location !!}</div>
@@ -84,7 +83,7 @@
                                                 </tr>
 
                                                 <tr id="collapse{!! $i !!}" class="collapse hide">
-                                                    <td colspan="6">
+                                                    <td colspan="5">
                                                         <div style="width: 100%;">
                                                             <div class="collapse show" aria-labelledby="heading{!! $i !!}"
                                                                 data-parent="#accordion" style="background:#fff">
