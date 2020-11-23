@@ -26,21 +26,21 @@
                                 <div class="row from-group">
                                     <div class="col-md-4 rightt"><strong>Full Name : </strong>
                                     </div>
-                                    <div class="col-md-8"><input type="text" class="form-control">
+                                    <div class="col-md-8"><input type="text" value="{!! authCustomerName() !!}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="row from-group">
                                     <div class="col-md-4 rightt"><strong>Email : </strong>
                                     </div>
                                     <div class="col-md-8"><input type="text" class="form-control"
-                                            placeholder="tripsmah@gmail.com">
+                                            placeholder="Email" value="{!! authCustomerEmail() !!}">
                                     </div>
                                 </div>
                                 <div class="row from-group">
                                     <div class="col-md-4 rightt"><strong>Phone Number : </strong>
                                     </div>
                                     <div class="col-md-8"><input type="text" class="form-control"
-                                            placeholder="+918054500805">
+                                            placeholder="Phone Number" value="{!! authCustomerMobile() !!}">
                                     </div>
                                 </div>
                                 <div class="row from-group">

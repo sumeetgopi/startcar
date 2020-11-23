@@ -34,3 +34,17 @@
     min-height: 38px !important;
     border-radius: 5px !important;
 }
+
+.__myicon {
+    font-size: 15px !important;
+    line-height: 25px !important;
+}
+
+.__myicon img {
+    height: 25px;
+    margin-left: -7px !important;
+}
+
+.__myicon small {
+    font-size: 12px !important;
+}

@@ -58,7 +58,17 @@
                                                             {!! $row->to_location !!}</div>
                                                     </td>
                                                     <td>
-                                                        <div>Van <img src="{!! asset('front/images/visitors.svg') !!}">x4 </div>
+                                                        <div class="__myicon">
+                                                            {!! $row->category_name !!} <br>
+
+                                                            @if($row->no_of_adult > 0)
+                                                                <div><img src="{!! asset('front/images/visitors.svg') !!}">x{!! $row->no_of_adult !!} <small>( Adult )</small> </div>
+                                                            @endif
+
+                                                            @if($row->no_of_children > 0)
+                                                                <div><img src="{!! asset('front/images/visitors.svg') !!}">x{!! $row->no_of_children !!} <small>( Child )</small></div>
+                                                            @endif
+                                                        </div>
                                                     </td>
                                                     <td>
                                                         <div id="accordion">

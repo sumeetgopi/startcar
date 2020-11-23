@@ -45,18 +45,18 @@
 				<div class="services">
 					<h3>Services</h3>
 					<ul>
-						<li><a href="index.php">Home</a></li>
-						<li><a href="about-us.php">About Us</a></li>
-						<li><a href="index.php#fleet">Our Fleet</a></li>
-						<li><a href="news.php">Feedback</a></li>
-						<li><a href="faqs.php">FAQs</a></li>
+						<li><a href="{!! route('front.home') !!}">Home</a></li>
+						<li><a href="#">About Us</a></li>
+						<li><a href="{!! route('front.home') !!}#fleet">Our Fleet</a></li>
+						<li><a href="#">Feedback</a></li>
+						<li><a href="{!! route('front.faqs') !!}">FAQs</a></li>
 					</ul>
 					<ul>
-						<li><a href="book-a-ride.php">Book A Ride</a></li>
-						<li><a href="order-history.php">Order History</a></li>
-						<li><a href="miles-rewards.php">Miles Rewards</a></li>
-						<li><a href="account-settings.php">Account Settings</a></li>
-						<li><a href="contact-us.php">Contact Us</a></li>
+						<li><a href="{!! route('front.book') !!}">Book A Ride</a></li>
+						<li><a href="{!! route('front.pending') !!}">Order History</a></li>
+						<li><a href="{!! route('front.reward') !!}">Miles Rewards</a></li>
+						<li><a href="{!! route('front.setting') !!}">Account Settings</a></li>
+						<li><a href="#">Contact Us</a></li>
 					</ul>
 				</div>
 			</div>

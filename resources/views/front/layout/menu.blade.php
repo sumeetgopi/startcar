@@ -1,7 +1,6 @@
 @if(isAuthCustomerLogin())
     <div class="header-bottom">
         <div class="container">
-
             <div class="bottom-left col-md-12">
                 <a class="navbar-brand d-md-none" href="{!! asset('front/index.php') !!}"><img src="{!! asset('front/images/logo.png') !!}" alt="Jeetii" title="Jeetii"></a>
                 <nav class="navbar navbar-expand-md">
@@ -35,6 +34,9 @@
                                 <li class="nav-item">
                                     <a href="#">Contact Us</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a style="color: #fdb531; text-transform: none;" href="javascript:void(0);">Welcome ({!! authCustomerEmail() !!})</a>
+                                </li>
 
 
                                 <li class="nav-item d-md-none"><a href="{!! route('front.pending') !!}">Order History</a></li>
@@ -46,6 +48,7 @@
 
                             <ul class="navbar-nav">
 
+                                <li><a href="{!! route('front.book') !!}">Book A Ride</a></li>
                                 <li><a href="{!! route('front.pending') !!}">Order History</a></li>
                                 <li><a href="{!! route('front.reward') !!}">Miles Rewards</a></li>
                                 <li><a href="{!! route('front.setting') !!}">Account Settings</a></li>

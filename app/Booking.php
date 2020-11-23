@@ -148,11 +148,13 @@ class Booking extends Model
     {
         $fields = [
             'booking.*',
+            'category.category_name',
             \DB::raw('ifnull(count(booking_quotation.id), 0) as total_quotation')
         ];
 
         return $this
             ->leftJoin('booking_quotation', 'booking_quotation.booking_id', '=', 'booking.id')
+            ->leftJoin('category', 'category.id', '=', 'booking.vehicle_category_id')
             ->where('booking.customer_id', $customerId)
             ->where('booking.booking_status', 'pending')
             ->groupBy('booking.id')
@@ -163,9 +165,11 @@ class Booking extends Model
     {
         $fields = [
             'booking.*',
+            'category.category_name',
         ];
 
         return $this
+            ->leftJoin('category', 'category.id', '=', 'booking.vehicle_category_id')
             ->where('booking.customer_id', $customerId)
             ->where('booking.booking_status', 'hired')
             ->get($fields);
@@ -175,9 +179,11 @@ class Booking extends Model
     {
         $fields = [
             'booking.*',
+            'category.category_name',
         ];
 
         return $this
+            ->leftJoin('category', 'category.id', '=', 'booking.vehicle_category_id')
             ->where('booking.customer_id', $customerId)
             ->whereIn('booking.booking_status', ['completed', 'canceled'])
             ->get($fields);

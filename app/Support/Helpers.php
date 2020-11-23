@@ -347,6 +347,7 @@ function customerCashbackAmount() { return auth('api')->user()->cashback_amount;
 
 function isAuthCustomerLogin() { return \Auth::check(); }
 function authCustomerId() { return \Auth::id(); }
+function authCustomerName() { return \Auth::user()->name; }
 function authCustomerEmail() { return \Auth::user()->email; }
 function authCustomerMobile() { return \Auth::user()->mobile_number; }
 
