@@ -36,7 +36,7 @@
 
                                 <div>
                                     <div class="form-group">
-                                        <input type="text" name="email" value="{!! $e !!}" class="form-control" placeholder="Email ID">
+                                        <input type="text" name="email" readonly value="{!! $e !!}" class="form-control" placeholder="Email ID">
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group __mobile">
@@ -188,7 +188,7 @@
                             <div class="tab-sec" id="">
                                 {!! Form::open(['route' => 'front.book-per-hour', 'method' => 'post', 'id' => 'ajax-submit2', 'files' => 'true', 'class' => 'form-inline']) !!}
                                 <div class="form-group">
-                                    <input type="text" name="email" value="{!! $e !!}" class="form-control" placeholder="Email ID">
+                                    <input type="text" name="email" readonly name="email" value="{!! $e !!}" class="form-control" placeholder="Email ID">
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group __mobile">

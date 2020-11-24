@@ -766,4 +766,13 @@ function bookingQuotation($bookingId) {
 function bookingCategory() {
     return (new Category)->bookingCategory();
 }
+
+function sendRegisterMail($email, $password) {
+    // send email start
+    $subject = "Login Info";
+    $msg = "Username/Email: $email\nPassword: $password";
+    $msg = wordwrap($msg, 70);
+    mail($email, $subject, $msg);
+    // send mail end
+}
 ?>

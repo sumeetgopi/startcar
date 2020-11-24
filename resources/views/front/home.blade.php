@@ -27,16 +27,16 @@
                 <div class="wrapper_tabcontent">
                     <div id="route" class="tabcontent active">
                         <div class="tab-sec" id="">
-                            <form class="form-inline" action="{!! route('front.book') !!}" method="get">
-                                <input type="hidden" name="t" value="route" />
+                            {!! Form::open(['route' => 'front.home-book', 'method' => 'post', 'id' => 'ajax-submit', 'files' => 'true', 'class' => 'form-inline']) !!}
+                                <input type="hidden" name="booking_type" value="route" />
                                 <div class="form-group">
-                                    <input type="text" name="fl" class="form-control" placeholder="Start Destination">
+                                    <input type="text" name="from_location" class="form-control" placeholder="Start Destination">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="tl" class="form-control" placeholder="End Destination">
+                                    <input type="text" name="to_location" class="form-control" placeholder="End Destination">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="e" class="form-control" placeholder="Email ID">
+                                    <input type="text" name="email" class="form-control" placeholder="Email ID">
                                 </div>
 
                                 <?php
@@ -44,7 +44,7 @@
                                     $path = env('CATEGORY_PATH');
                                 ?>
                                 @if(isset($bookingCategory) && count($bookingCategory) > 0)
-                                    <input type="hidden" value="{!! $bookingCategory[0]->id !!}" name="vc" class="__vc">
+                                    <input type="hidden" value="{!! $bookingCategory[0]->id !!}" name="vehicle_category" class="__vc">
                                     <nav>
                                         <div class="nav nav-tabs nav-fill __nav_vehicle_category __nav">
                                             @foreach($bookingCategory as $bci => $bc)
@@ -56,24 +56,23 @@
                                         </div>
                                     </nav>
                                 @endif
-
                               
                                 <div class="form-group">
                                     <button type="submit" class="btn book-ride">Book a ride</button>
                                 </div>
-                            </form>
+                            {!! Form::close() !!}
                         </div>
                     </div>
 
                     <div id="hour" class="tabcontent">
                         <div class="tab-sec" id="">
-                            <form class="form-inline" action="{!! route('front.book') !!}" method="get">
-                                <input type="hidden" name="t" value="hour">
+                            {!! Form::open(['route' => 'front.home-book', 'method' => 'post', 'id' => 'ajax-submit2', 'files' => 'true', 'class' => 'form-inline']) !!}
+                                <input type="hidden" name="booking_type" value="hour" />
                                 <div class="form-group">
-                                    <input type="text"  name="fl" class="form-control" placeholder="Start Destination">
+                                    <input type="text"  name="from_location" class="form-control" placeholder="Start Destination">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="e" class="form-control" placeholder="Email ID">
+                                    <input type="text" name="email" class="form-control" placeholder="Email ID">
                                 </div>
 
                                 <?php
@@ -81,7 +80,7 @@
                                     $path = env('CATEGORY_PATH');
                                 ?>
                                 @if(isset($bookingCategory) && count($bookingCategory) > 0)
-                                    <input type="hidden" value="{!! $bookingCategory[0]->id !!}" name="vc" class="__vc2">
+                                    <input type="hidden" value="{!! $bookingCategory[0]->id !!}" name="vehicle_category" class="__vc2">
                                     <nav>
                                         <div class="nav nav-tabs nav-fill __nav_vehicle_category2 __nav">
                                             @foreach($bookingCategory as $bci => $bc)
@@ -97,7 +96,7 @@
                                 <div class="form-group">
                                     <button type="submit" class="btn book-ride">Book a ride</button>
                                 </div>
-                            </form>
+                            {!! Form::close() !!}
                         </div>
                     </div>
                 </div>

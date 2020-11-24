@@ -7,14 +7,13 @@ use App\User;
 use App\Validation;
 use Illuminate\Http\Request;
 
-class FrontController extends Controller
+class FrontControllerCopy extends Controller
 {
     public function home() {
         return view('front.home');
     }
 
-    public function homeBook(Request $request) 
-    {
+    public function homeBookByRoute(Request $request) {
         $inputs = $request->all();
         $validation = (new Booking)->homeFrontBookByRoute($inputs);
         if($validation->fails()) {
@@ -28,13 +27,11 @@ class FrontController extends Controller
             'from_location' => $inputs['from_location'],
             'from_lat' => '75.36',
             'from_lon' => '31.38',
-        ];
 
-        if($inputs['booking_type'] == 'route') {
-            $booking['to_location'] = $inputs['to_location'];
-            $booking['to_lat'] = '74.36';
-            $booking['to_lon'] = '32.38';
-        }
+            'to_location' => $inputs['to_location'],
+            'to_lat' => '74.36',
+            'to_lon' => '32.38',
+        ];
 
         session()->put('book', $booking);
         session()->put('email', $inputs['email']);
@@ -48,6 +45,7 @@ class FrontController extends Controller
             else {
                 $password = rand(111111, 999999);
                 $create = [
+                    // 'mobile_number' => $inputs['mobile_number'], // if mobile no empty then update mobile number same
                     'email' => $inputs['email'],
                     'password' => \Hash::make($password),
                     'status' => '1',
@@ -59,9 +57,6 @@ class FrontController extends Controller
                
                 // send mail code start
                 sendRegisterMail($inputs['email'], $password);
-
-                $extra['redirect'] = route('front.book');
-                return jsonResponse(true, 201, '', $extra);
             }
         }
         else {
@@ -70,18 +65,20 @@ class FrontController extends Controller
         }
     }
 
-    public function book(Request $request) 
-    {
-        $e = session('email', '');
-        if($e == '') {
-            $e = authCustomerEmail();
+    public function book(Request $request) {
+        $e = $request->get('e', '');
+        $m = '';
+        if(isAuthCustomerLogin()) {
+            if($e == '') {
+                $e = authCustomerEmail();
+            }
+            $m = authCustomerMobile();
         }
 
-        $m = authCustomerMobile();
-        $fl = session('book.from_location', '');
-        $tl = session('book.to_location', '');
-        $vc = session('book.vehicle_category_id', '');
-        $t = session('book.booking_type', 'route');
+        $fl = $request->get('fl', '');
+        $tl = $request->get('tl', '');
+        $vc = $request->get('vc', '');
+        $t = $request->get('t', '');
         return view('front.book', compact('e', 'fl', 'tl', 'vc', 't', 'm'));
     }
 
@@ -94,7 +91,6 @@ class FrontController extends Controller
 
         $transferDate = $inputs['transfer_date'] . ' ' . $inputs['transfer_time'];
         $booking = [
-            'customer_id' => authCustomerId(),
             'booking_number' => (new Booking)->bookingNumber(),
             'vehicle_category_id' => $inputs['vehicle_category'],
             'booking_type' => 'route',
@@ -114,7 +110,6 @@ class FrontController extends Controller
             'no_of_children' => $inputs['no_of_children'],
             'requirement' => $inputs['requirement'],
         ];
-
         if(isset($inputs['is_return_way'])) {
             $booking['is_return_way'] = 1;
             $returnDate = $inputs['return_date'] . ' ' . $inputs['return_time'];
@@ -133,28 +128,67 @@ class FrontController extends Controller
             $booking['promo_code'] = $inputs['promo_code'];
         }
 
+        if(!isAuthCustomerLogin()) {
+            // check email code start
+            $emailExist = (new User)->customerEmailExist($inputs['email']);
+            if ($emailExist) {
+                session()->put('book', $booking);
+                session()->put('email', $inputs['email']);
+                $extra['redirect'] = route('front.login-page');
+                return jsonResponse(true, 201, '', $extra);
+            }
+            else {
+                $password = rand(111111, 999999);
+                $create = [
+                    'mobile_number' => $inputs['mobile_number'],
+                    'email' => $inputs['email'],
+                    'password' => \Hash::make($password),
+                    'status' => '1',
+                    'user_type' => 'customer'
+                ];
+                $id = (new User)->store($create);
+                $booking['customer_id'] = $id;
+                \Auth::loginUsingId($id);
+
+                $email = $inputs['email'];
+                /* $data = [
+                    'subject' => 'Login Details',
+                    'username' => $email,
+                    'password' => $password,
+                    'url' => route('front.home')
+                ];
+
+                \Mail::send('front.mail.register', compact('data'), function ($message) use ($data, $email) {
+                    $message->from(env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME'));
+                    $message->to($email);
+                    $message->subject($data['subject']);
+                }); */
+
+                // send email start
+                $subject = "Login Info";
+                $msg = "Username/Email: $email\nPassword: $password";
+                $msg = wordwrap($msg, 70);
+                mail($email, $subject, $msg);
+                // send mail end
+
+            }
+            // check email code end
+        }
+        else {
+            $booking['customer_id'] = authCustomerId();
+        }
+
         try {
             \DB::beginTransaction();
             (new Booking)->store($booking);
-
-            if(authCustomerMobile() == '') {
-                (new User)->store(['mobile_number' => $inputs['mobile_number']], authCustomerId());
-            }
             \DB::commit();
-
-            if(session()->has('email')) {
-                session()->remove('email');
-            }
-            if(session()->has('book')) {
-                session()->remove('book');
-            }
 
             $extra = ['redirect' => route('front.pending')];
             return jsonResponse(true, 201, '', $extra);
         }
         catch(\Exception $e) {
             \DB::rollBack();
-            return jsonResponse(false, 207, __('message.server_error'));
+            return jsonResponse(false, 207, __('message.server_error') . $e->getMessage());
         }
     }
 
@@ -168,7 +202,7 @@ class FrontController extends Controller
         $transferDate = $inputs['transfer_date'] . ' ' . $inputs['transfer_time'];
         $returnDate = $inputs['return_date'] . ' ' . $inputs['return_time'];
         $booking = [
-            'customer_id' => authCustomerId(),
+            'customer_id' => 2,
             'booking_number' => (new Booking)->bookingNumber(),
             'vehicle_category_id' => $inputs['vehicle_category'],
             'booking_type' => 'hour',
@@ -192,7 +226,6 @@ class FrontController extends Controller
             'no_of_children' => $inputs['no_of_children'],
             'requirement' => $inputs['requirement'],
         ];
-
         if(isset($inputs['is_flight'])) {
             $booking['is_flight'] = 1;
             $booking['flight_no'] = $inputs['flight_number'];
@@ -206,24 +239,56 @@ class FrontController extends Controller
             $booking['promo_code'] = $inputs['promo_code'];
         }
 
+        // check email code start
+        $emailExist = (new User)->customerEmailExist($inputs['email']);
+        if($emailExist) {
+            session()->put('book', $booking);
+            session()->put('email', $inputs['email']);
+            $extra['redirect'] = route('front.login-page');
+            return jsonResponse(true, 201, '', $extra);
+        }
+        else {
+            $password = rand(111111, 999999);
+            $create = [
+                'mobile_number' => $inputs['mobile_number'],
+                'email' => $inputs['email'],
+                'password' => \Hash::make($password),
+                'status' => '1',
+                'user_type' => 'customer'
+            ];
+            $id = (new User)->store($create);
+            $booking['customer_id'] = $id;
+            \Auth::loginUsingId($id);
+
+            $email = $inputs['email'];
+           /*  $data = [
+                'subject' => 'Login Details',
+                'username' => $email,
+                'password' => $password,
+                'url' => route('front.home')
+            ];
+
+            \Mail::send('front.mail.register', compact('data'), function ($message) use ($data, $email) {
+                $message->from(env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME'));
+                $message->to($email);
+                $message->subject($data['subject']);
+            }); */
+
+            // send email start
+            $subject = "Login Info";
+            $msg = "Username/Email: $email\nPassword: $password";
+            $msg = wordwrap($msg, 70);
+            mail($email, $subject, $msg);
+            // send mail end
+        }
+        // check email code end
+
         try {
             \DB::beginTransaction();
             (new Booking)->store($booking);
-            
-            if(authCustomerMobile() == '') {
-                (new User)->store(['mobile_number' => $inputs['mobile_number']], authCustomerId());
-            }
             \DB::commit();
 
-            if(session()->has('email')) {
-                session()->remove('email');
-            }
-            if(session()->has('book')) {
-                session()->remove('book');
-            }
-
-            $extra = ['redirect' => route('front.pending')];
-            return jsonResponse(true, 201, '', $extra);
+            return jsonResponse(true, 201, __('booking.created'));
         }
         catch(\Exception $e) {
             \DB::rollBack();
@@ -233,10 +298,6 @@ class FrontController extends Controller
 
     public function loginPage()
     {
-        if(isAuthCustomerLogin()) {
-            return redirect()->route('front.book');
-        }
-
         $email = session('email', '');
         return view('front.login', compact('email'));
     }
@@ -258,7 +319,18 @@ class FrontController extends Controller
             ];
 
             if (\Auth::attempt($credentials)) {
-                $extra['redirect'] = route('front.book');
+                $book = session('book');
+                if(isset($book)) {
+                    \DB::beginTransaction();
+                    $book['customer_id'] = authCustomerId();
+                    (new Booking)->store($book);
+
+                    session()->remove('book');
+                    session()->remove('email');
+                    \DB::commit();
+                }
+
+                $extra['redirect'] = route('front.pending');
                 return jsonResponse(true, 201, '', $extra);
             }
             else {
@@ -381,5 +453,63 @@ class FrontController extends Controller
         catch(\Exception $e) {
             return jsonResponse(false, 207, __('message.server_error'));
         }
+    }
+
+    public function test()
+    {
+        try {
+            // mail code start
+            $email = 'sumeetnarula1@gmail.com';
+            $password = rand(111111, 999999);
+
+            $data = [
+                'subject' => 'Login Details',
+                'username' => $email,
+                'password' => $password,
+                'url' => route('front.home')
+            ];
+
+            try {
+                /* \Mail::send('front.mail.register', compact('data'), function ($message) use ($data, $email) {
+                    $message->from(env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME'));
+                    $message->to($email);
+                    $message->subject($data['subject']);
+                }); */
+
+                // send email start
+                $subject = "Login Info";
+                $msg = "Username/Email: $email\nPassword: $password";
+                $msg = wordwrap($msg, 70);
+                mail($email, $subject, $msg);
+                // send mail end
+            }
+            catch(\Exception $e) {
+                dd($e->getMessage());
+            }
+                // mail code end
+
+            dd('done');
+        }
+        catch(\Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    public function gurpreetemail()
+    {
+        // send mail code start
+               $email = "sumeetgopi13@gmail.com";
+               $password = rand(111111, 999999);
+               $subject = 'Login Details';
+               
+               $data = ['subject' => $subject, 'username' => $email , 'password' => $password];
+               Mail::send('front.mail.registerDetails', ['data'=>$data] , function($message) use ($data, $email){
+                $message->from(env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME'));
+                
+                $message->to($email);
+                $message->subject($data['subject']);
+            });            
+            // send mail code end
+            print_r('email code run');
     }
 }

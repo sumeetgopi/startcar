@@ -70,6 +70,20 @@ class Booking extends Model
         'deleted_at'
     ];
 
+    public function homeFrontBookByRoute($inputs = []) {
+        $rules = [
+            'email' => 'required|email',
+            'from_location' => 'required|min:1',
+            'vehicle_category' => 'required|numeric|min:1',
+            'booking_type' => 'required|in:route,hour',
+        ];
+
+        if(isset($inputs['booking_type']) && $inputs['booking_type'] == 'route') {
+            $rules['to_location'] = 'required|min:1';
+        }
+        return validator($inputs, $rules);
+    }
+
     public function frontBookByRoute($inputs = []) {
         $rules = [
             'email' => 'required|email',
