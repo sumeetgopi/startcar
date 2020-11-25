@@ -16,8 +16,12 @@ Route::post('login', 'FrontController@login')->name('front.login');
 Route::post('register', 'FrontController@register')->name('front.register');
 Route::post('home-book', 'FrontController@homeBook')->name('front.home-book');
 
+Route::get('forgot-password', 'FrontController@forgotPassword')->name('front.forgot-password');
+Route::post('forgot-password-post', 'FrontController@forgotPasswordPost')->name('front.forgot-password.post');
+
 Route::middleware(['customer'])->group(function () {
     Route::get('book', 'FrontController@book')->name('front.book');
+    Route::get('book-edit/{id}', 'FrontController@bookEdit')->name('front.book-edit');
 
     Route::post('book-by-route', 'FrontController@bookByRoute')->name('front.book-by-route');
     Route::post('book-per-hour', 'FrontController@bookPerHour')->name('front.book-per-hour');

@@ -292,6 +292,56 @@ class FrontController extends Controller
         return view('front.past', compact('result'));
     }
 
+    public function bookEdit($id) 
+    {
+        $customerId = authCustomerId();
+        $result = (new Booking)->customerBooking($customerId, $id);
+        if(!$result) {
+            return redirect()->route('front.pending');
+        }
+
+        $e = session('email', '');
+        if($e == '') {
+            $e = authCustomerEmail();
+        }
+
+        $m = authCustomerMobile();
+        $fl = session('book.from_location', '');
+        $tl = session('book.to_location', '');
+        $vc = session('book.vehicle_category_id', '');
+        $t = session('book.booking_type', 'route');
+
+        return view('front.book-edit', compact('result', 'e', 'fl', 'tl', 'vc', 't', 'm'));
+    }
+
+    public function bookEditPost($id) 
+    {
+        $customerId = authCustomerId();
+        $result = (new Booking)->customerBooking($customerId, $id);
+        if(!$result) {
+            return redirect()->route('front.pending');
+        }
+
+        return view('front.book-edit', compact('result',));
+    }
+
+    public function bookCancel($id) 
+    {
+        $customerId = authCustomerId();
+        $result = (new Booking)->customerBooking($customerId, $id);
+        if(!$result) {
+            return jsonResponse(false, 207, __('message.invalid_details'));
+        }
+
+        try {
+            \DB::beginTransaction();            
+            \DB::commit();            
+        }
+        catch(\Exception $e) {
+
+        }
+    }
+
     public function faqs() {
         return view('front.faqs');
     }
@@ -379,6 +429,53 @@ class FrontController extends Controller
             return jsonResponse(true, 201, '', $extra);
         }
         catch(\Exception $e) {
+            return jsonResponse(false, 207, __('message.server_error'));
+        }
+    }
+
+    public function forgotPassword() {
+        return view('front.forgot-password');
+    }
+
+    public function forgotPasswordPost(Request $request) 
+    {
+        $inputs = $request->all();
+        $validation = (new Validation)->frontForgotPassword($inputs);
+        if($validation->fails()) {
+            return jsonResponse(false, 206, $validation->getMessageBag());
+        }
+
+        $result = (new User)->customerEmailExist($inputs['email']);
+        if (!$result) {
+            $message = __('message.invalid_email');
+            return jsonResponse(false, 207, $message);
+        }
+
+        try {
+            \DB::beginTransaction();
+
+            // user code start
+            $password = rand(111111, 999999);
+            $update = [
+                'password' => \Hash::make($password)
+            ];
+
+            (new User)->store($update, $result->id);
+            // user code end
+
+            // send mail code start
+            sendRegisterMail($inputs['email'], $password);
+            // send mail code end
+
+            \DB::commit();
+
+            $extra = ['redirect' => route('front.forgot-password')];
+            $message = __('message.password_updated');
+
+            return jsonResponse(true, 201, $message, $extra);
+        }
+        catch(\Exception $e) {
+            \DB::rollBack();
             return jsonResponse(false, 207, __('message.server_error'));
         }
     }

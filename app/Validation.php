@@ -203,4 +203,12 @@ class Validation
         ];
         return validator($inputs, $rules);
     }
+
+    public function frontForgotPassword($inputs = [])
+    {
+        $rules = [
+            'email' => 'required|email',
+        ];
+        return validator($inputs, $rules);
+    }
 }

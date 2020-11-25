@@ -127,7 +127,7 @@
 
                                                                         <div class="form-group">
                                                                             <button type="submit" class="btn btn-danger">Cancel Ride</button>
-                                                                            <button type="submit" class="btn btn-info">Edit Ride</button>
+                                                                            <a href="{!! route('front.book-edit', $row->id) !!}" class="btn btn-info">Edit Ride</a>
                                                                         </div>
                                                                     </div>
 

@@ -31,7 +31,7 @@
                                     <div class="form-group">
                                         <input type="password" name="password" class="form-control" placeholder="Password">
                                     </div>
-                                    <p class="frgot-pwd"><a href="#">Forgot password?</a></p>
+                                    <p class="frgot-pwd"><a href="{!! route('front.forgot-password') !!}">Forgot password?</a></p>
                                     <button type="submit" class="btn book-ride submit">LOGIN</button>
                                 {!! Form::close() !!}
                             </div>

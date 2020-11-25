@@ -202,4 +202,17 @@ class Booking extends Model
             ->whereIn('booking.booking_status', ['completed', 'canceled'])
             ->get($fields);
     }
+
+    public function customerBooking($bookingId, $customerId)
+    {
+        $fields = [
+            'booking.*',
+            'category.category_name',
+        ];
+        return $this
+            ->leftJoin('category', 'category.id', '=', 'booking.vehicle_category_id')
+            ->where('booking.id', $bookingId)
+            ->where('booking.customer_id', $customerId)
+            ->first($fields);
+    }
 }
