@@ -38,13 +38,17 @@
                                     <div class="form-group">
                                         <input type="text" name="email" readonly value="{!! $e !!}" class="form-control" placeholder="Email ID">
                                     </div>
-                                    <div class="form-group">
+                                    
+                                    {{-- <div class="form-group">
                                         <div class="input-group __mobile">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">+91</span>
                                             </div>
                                             <input type="text" name="mobile_number" value="{!! $m !!}" class="form-control" placeholder="Mobile Number">
                                         </div>
+                                    </div> --}}
+                                    <div class="form-group">
+                                        <input type="text" name="mobile_number" value="{!! $m !!}" class="form-control" placeholder="Mobile number with country code">
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -190,13 +194,16 @@
                                 <div class="form-group">
                                     <input type="text" name="email" readonly name="email" value="{!! $e !!}" class="form-control" placeholder="Email ID">
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <div class="input-group __mobile">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">+91</span>
                                         </div>
                                         <input type="text" name="mobile_number" value="{!! $m !!}" class="form-control" placeholder="Mobile Number">
                                     </div>
+                                </div> --}}
+                                <div class="form-group">
+                                    <input type="text" name="mobile_number" value="{!! $m !!}" class="form-control" placeholder="Mobile number with country code">
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="form-group">

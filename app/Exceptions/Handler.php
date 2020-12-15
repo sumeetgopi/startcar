@@ -57,24 +57,20 @@ class Handler extends ExceptionHandler
             if ($preException instanceof TokenExpiredException) {
                 $message = __('message.token_expired');
                 return apiResponse(0, $message, $data);
-                // return response()->json(['error' => 'TOKEN_EXPIRED']);
             }
             else if ($preException instanceof TokenInvalidException) {
                 $message = __('message.token_invalid');
                 return apiResponse(0, $message, $data);
-                // return response()->json(['error' => 'TOKEN_INVALID']);
             }
             else if ($preException instanceof TokenBlacklistedException) {
                 $message = __('message.token_blacklisted');
                 return apiResponse(0, $message, $data);
-                // return response()->json(['error' => 'TOKEN_BLACKLISTED']);
             }
         }
 
         if ($exception->getMessage() === 'Token not provided') {
             $message = __('message.token_not_provided');
             return apiResponse(0, $message, $data);
-            // return response()->json(['error' => 'Token not provided']);
         }
         return parent::render($request, $exception);
     }

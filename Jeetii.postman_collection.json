@@ -1,0 +1,218 @@
+{
+	"id": "b3d951bd-c2ac-8d0e-2541-0143c30a7a0d",
+	"name": "Jeetii",
+	"description": "",
+	"order": [
+		"e1a09535-effc-883f-4ce3-aa25c5c3f86e",
+		"200e0917-c499-d9aa-a378-e408fb8d9aa8"
+	],
+	"folders": [
+		{
+			"name": "Agency",
+			"description": "",
+			"collectionId": "b3d951bd-c2ac-8d0e-2541-0143c30a7a0d",
+			"order": [
+				"1e3fe644-02d3-9006-126e-3c4d0f4c94dc"
+			],
+			"owner": 0,
+			"folders_order": [],
+			"id": "6b679317-6c49-38cf-48c7-fdbec11a1e0a"
+		},
+		{
+			"name": "Customer",
+			"description": "",
+			"collectionId": "b3d951bd-c2ac-8d0e-2541-0143c30a7a0d",
+			"order": [
+				"c248a8f5-4014-a9b7-cef1-6fefbf41b35d"
+			],
+			"owner": 0,
+			"folders_order": [],
+			"id": "d3ba1fd7-ef5f-d771-0749-0b552579da5e"
+		}
+	],
+	"folders_order": [
+		"6b679317-6c49-38cf-48c7-fdbec11a1e0a",
+		"d3ba1fd7-ef5f-d771-0749-0b552579da5e"
+	],
+	"timestamp": 1607694698517,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "1e3fe644-02d3-9006-126e-3c4d0f4c94dc",
+			"headers": "Authorization: {{customer_token}}\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "{{customer_token}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{url}}/agency/common",
+			"folder": "6b679317-6c49-38cf-48c7-fdbec11a1e0a",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1607786501711,
+			"name": "Common",
+			"description": "",
+			"collectionId": "b3d951bd-c2ac-8d0e-2541-0143c30a7a0d",
+			"responses": []
+		},
+		{
+			"id": "200e0917-c499-d9aa-a378-e408fb8d9aa8",
+			"headers": "",
+			"headerData": [],
+			"url": "{{url}}/otp-verify",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [
+				{
+					"key": "otp_code",
+					"value": "7706",
+					"type": "text",
+					"enabled": true,
+					"description": ""
+				},
+				{
+					"key": "user_type",
+					"value": "customer",
+					"type": "text",
+					"enabled": true,
+					"description": "agency/customer"
+				},
+				{
+					"key": "mobile_number",
+					"value": "9876855626",
+					"description": "required when agency",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "customer5@gmail.com",
+					"description": "required when customer",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "fcm_token",
+					"value": "eASAazgOADo:APA91bE2FvsWdlbCCLrjpqmb5zmr9SxHYg1jvyaQF39knJRHpXOmFVud6CcAZthwj2EalCdqDxNWWcurzn5vfA7j1TuU7hixZfAwdkddlV_9WexIAqElPggnHjV_7hXAxLPJLwblkYWn",
+					"type": "text",
+					"enabled": false,
+					"description": ""
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1607786882870,
+			"name": "Otp Verify",
+			"description": "",
+			"collectionId": "b3d951bd-c2ac-8d0e-2541-0143c30a7a0d",
+			"responses": []
+		},
+		{
+			"id": "c248a8f5-4014-a9b7-cef1-6fefbf41b35d",
+			"headers": "Authorization: {{customer_token}}\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "{{customer_token}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{url}}/customer/common",
+			"folder": "6b679317-6c49-38cf-48c7-fdbec11a1e0a",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1607787180066,
+			"name": "Common",
+			"description": "",
+			"collectionId": "b3d951bd-c2ac-8d0e-2541-0143c30a7a0d",
+			"responses": []
+		},
+		{
+			"id": "e1a09535-effc-883f-4ce3-aa25c5c3f86e",
+			"headers": "",
+			"headerData": [],
+			"url": "{{url}}/register",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "agency first",
+					"type": "text",
+					"enabled": true,
+					"description": ""
+				},
+				{
+					"key": "device_type",
+					"value": "android",
+					"type": "text",
+					"enabled": true,
+					"description": "android/ios"
+				},
+				{
+					"key": "user_type",
+					"value": "customer",
+					"description": "customer/agency",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "mobile_number",
+					"value": "9876855626",
+					"type": "text",
+					"enabled": true,
+					"description": "required when agency"
+				},
+				{
+					"key": "email",
+					"value": "customer5@gmail.com",
+					"description": "required when customer",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1607786839454,
+			"name": "Register",
+			"description": "",
+			"collectionId": "b3d951bd-c2ac-8d0e-2541-0143c30a7a0d",
+			"responses": []
+		}
+	]
+}

@@ -48,3 +48,7 @@
 .__myicon small {
     font-size: 12px !important;
 }
+
+.__cancel_modal {
+    z-index: 9999999999 !important;
+}

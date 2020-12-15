@@ -7,7 +7,7 @@
     <!--  Banner Start here -->
     <section class="book-ride-banner inner-banner">
         <div class="banner-box">
-            <h1><span>Edit Book</span> #{!! $result->booking_number .' <br>(' . frontBookingType($result->booking_type) .')' !!}</h1>
+            <h1><span>book </span>a ride</h1>
 
         </div>
     </section>
@@ -18,56 +18,68 @@
         <section class="search-section">
             <div class="container">
                 <div class="content">
-                    
+                    <!-- Tab links -->
+                    <div class="tabs" style="">
+                        <button class="tablinks active" {!! ($t == '' || $t == 'route') ? '' : 'style="display: none;"' !!} data-country="route">
+                            <p data-title="route">Book By Route</p>
+                        </button>
+                        <button class="tablinks active" {!! ($t == 'hour') ? '' : 'style="display: none;"' !!} data-country="hour">
+                            <p data-title="hour">Book Per Hour</p>
+                        </button>
+                    </div>
 
                     <!-- Tab content -->
-                     
+                    <div class="wrapper_tabcontent">
                         <div id="route" class="tabcontent  {!! ($t == '' || $t == 'route') ? 'active' : '' !!}">
                             <div class="tab-sec" id="">
-                                {!! Form::open(['route' => 'front.book-by-route', 'method' => 'post', 'id' => 'ajax-submit', 'files' => 'true', 'class' => 'form-inline']) !!}
+                                {!! Form::open(['route' => ['front.book-by-route.edit', $result->id], 'method' => 'post', 'id' => 'ajax-submit', 'files' => 'true', 'class' => 'form-inline']) !!}
 
                                 <div>
                                     <div class="form-group">
                                         <input type="text" name="email" readonly value="{!! $e !!}" class="form-control" placeholder="Email ID">
                                     </div>
-                                    <div class="form-group">
+                                    
+                                    {{-- <div class="form-group">
                                         <div class="input-group __mobile">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">+91</span>
                                             </div>
-                                            <input type="text" name="mobile_number" value="{!! $m !!}" class="form-control" placeholder="Mobile Number">
+                                            <input type="text" name="mobile_number" value="{!! $result->customer_mobile_number !!}" class="form-control" placeholder="Mobile Number">
                                         </div>
+                                    </div> --}}
+                                    <div class="form-group">
+                                        <input type="text" name="mobile_number" value="{!! $result->customer_mobile_number !!}" class="form-control" placeholder="Mobile number with country code">
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
 
                                 <div class="form-group">
-                                    <input type="text" name="from_location" value="{!! $fl !!}" class="form-control" placeholder="Start Destination">
+                                    <input type="text" name="from_location" value="{!! $result->from_location !!}" class="form-control" placeholder="Start Destination">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="to_location" value="{!! $tl !!}" class="form-control" placeholder="End Destination">
+                                    <input type="text" name="to_location" value="{!! $result->to_location !!}" class="form-control" placeholder="End Destination">
                                 </div>
                                 <div class="clearfix"></div>
 
                                 <div class="form-group">
-                                    <input readonly="readonly" type="text" name="transfer_date" class="form-control __from_date" value="{!! date('d-m-Y') !!}" placeholder="Transfer Date">
+                                    <input readonly="readonly" type="text" name="transfer_date" class="form-control __from_date" value="{!! dateFormat($result->transfer_datetime, 'd-m-Y') !!}" placeholder="Transfer Date">
                                 </div>
                                 <div class="form-group">
-                                    <input readonly="readonly" type="text" name="transfer_time" class="form-control timepicker" autocomplete="off" id="time" placeholder="Time">
+                                    <input readonly="readonly" type="text" name="transfer_time" class="form-control timepicker" value="{!! dateFormat($result->transfer_datetime, 'H:i A') !!}" autocomplete="off" id="time" placeholder="Time">
                                 </div>
                                 <div class="clearfix"></div>
 
                                 <div class="form-check-input">
-                                    <input type="checkbox" name="is_return_way" aria-label="Checkbox for following text input" id="return2"
+                                    <input type="checkbox" name="is_return_way" {!! ($result->is_return_way == 1) ? 'checked' : '' !!} aria-label="Checkbox for following text input" id="return2"
                                                onclick="returnn()"> &nbsp; Add Return Way
                                 </div>
-                                <div id="reeturn" style="display:none">
+                                <div id="reeturn" {!! ($result->is_return_way == 0) ? 'style="display:none"' : '' !!}>
                                     <div class="form-group">
-                                        <input readonly="readonly" type="text" name="return_date" class="form-control __to_date" value="{!! date('d-m-Y') !!}" placeholder="Transfer Date">
+                                        <input readonly="readonly" type="text" name="return_date" class="form-control __to_date" value="{!! dateFormat($result->return_datetime, 'd-m-Y') !!}" placeholder="Transfer Date">
                                     </div>
                                     <div class="form-group">
                                         <input readonly="readonly" type="text" name="return_time" class="form-control timepicker" autocomplete="off" id="time"
-                                               value="" placeholder="Time" required="">
+                                        value="{!! dateFormat($result->return_datetime, 'H:i A') !!}" placeholder="Time" required="">
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -81,7 +93,7 @@
                                         </button>
                                     </span>
                                     <input type="text" name="no_of_adult" id="quantity1" class="form-control input-number"
-                                           value="2" min="1" max="100">
+                                           value="{!! $result->no_of_adult !!}" min="1" max="100">
                                     <span class="input-group-btn">
                                         <button type="button" class="quantity-right-plus1 btn btn-success btn-number"
                                                 data-type="plus" data-field="">
@@ -99,7 +111,7 @@
                                         </button>
                                     </span>
                                     <input type="text" id="quantity2" name="no_of_children" class="form-control input-number"
-                                           value="2" min="1" max="100">
+                                           value="{!! $result->no_of_children !!}" min="1" max="100">
                                     <span class="input-group-btn">
                                         <button type="button" class="quantity-right-plus2 btn btn-success btn-number"
                                                 data-type="plus" data-field="">
@@ -136,25 +148,27 @@
                                         <div class="input-group mb-3">
                                             <div class="">
                                                 <div class="input-group-text">
-                                                    <input type="checkbox" name="is_flight"
+                                                    <input type="checkbox" name="is_flight" {!! ($result->is_flight == 1) ? 'checked' : '' !!}
                                                            aria-label="Checkbox for following text input" id="flight"
                                                            onclick="flightt()">&nbsp; Flight or train number &nbsp;<br>
-                                                    <div> <input type="text" name="flight_number" id="flightno" style="display:none; animation-duration: 3s; animation-name: slidein;" placeholder="Flight / Train Number" class="form-control input-number"></div>
+                                                    <div> <input type="text" name="flight_number" id="flightno" value="{!! $result->flight_no !!}"
+                                                    style="{!! ($result->is_flight == 0) ? 'display:none;' : '' !!} animation-duration: 3s; animation-name: slidein;" 
+                                                    placeholder="Flight / Train Number" class="form-control input-number"></div>
                                                 </div>
                                                 <div class="input-group-text">
-                                                    <input type="checkbox" name="is_meeting"
+                                                    <input type="checkbox" name="is_meeting" {!! ($result->is_meeting == 1) ? 'checked' : '' !!}
                                                            aria-label="Checkbox for following text input" id="meeting"
                                                            onclick="meetingg()">&nbsp; Meeting with a name sign is required &nbsp; <br>
-                                                    <div> <input type="text" name="passenger_name" id="meeeting" style="display:none"
-                                                                 placeholder="Please fill the passenger's name"
+                                                    <div> <input type="text" name="passenger_name" id="meeeting" style="{!! ($result->is_meeting == 0) ? 'display:none;' : '' !!}"
+                                                                 placeholder="Please fill the passenger's name" value="{!! $result->passenger_name !!}"
                                                                  class="form-control input-number"></div>
                                                 </div>
                                                 <div class="input-group-text">
-                                                    <input type="checkbox" name="is_promo_code"
+                                                    <input type="checkbox" name="is_promo_code" {!! ($result->is_promo_code == 1) ? 'checked' : '' !!}
                                                            aria-label="Checkbox for following text input" id="promo"
                                                            onclick="promoo()">&nbsp; Promo code &nbsp; <br>
-                                                    <div> <input type="text" name="promo_code" id="promocode" style="display:none"
-                                                                 placeholder="Enter promo code"
+                                                    <div> <input type="text" name="promo_code" id="promocode" style="{!! ($result->is_promo_code == 0) ? 'display:none;' : '' !!}"
+                                                                 placeholder="Enter promo code" value="{!! $result->promo_code !!}"
                                                                  class="form-control input-number"></div>
                                                 </div>
                                             </div>
@@ -162,7 +176,7 @@
                                     </div>
                                     <div class="form-group">
                                         <textarea name="requirement" placeholder="Provide your requirements" rows="3" cols="50"
-                                                  class="form-control"></textarea>
+                                                  class="form-control">{!! $result->requirement !!}</textarea>
                                     </div>
                                 </div>
 
@@ -178,41 +192,45 @@
 
                         <div id="hour" class="tabcontent {!! ($t == 'hour') ? 'active' : '' !!}">
                             <div class="tab-sec" id="">
-                                {!! Form::open(['route' => 'front.book-per-hour', 'method' => 'post', 'id' => 'ajax-submit2', 'files' => 'true', 'class' => 'form-inline']) !!}
+                                {!! Form::open(['route' => ['front.book-per-hour.edit', $result->id], 'method' => 'post', 'id' => 'ajax-submit2', 'files' => 'true', 'class' => 'form-inline']) !!}
                                 <div class="form-group">
                                     <input type="text" name="email" readonly name="email" value="{!! $e !!}" class="form-control" placeholder="Email ID">
                                 </div>
-                                <div class="form-group">
+                                
+                                {{-- <div class="form-group">
                                     <div class="input-group __mobile">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">+91</span>
                                         </div>
-                                        <input type="text" name="mobile_number" value="{!! $m !!}" class="form-control" placeholder="Mobile Number">
+                                        <input type="text" name="mobile_number" value="{!! $result->customer_mobile_number !!}" class="form-control" placeholder="Mobile Number">
                                     </div>
+                                </div> --}}
+                                <div class="form-group">
+                                    <input type="text" name="mobile_number" value="{!! $result->customer_mobile_number !!}" class="form-control" placeholder="Mobile number with country code">
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="form-group">
-                                    <input type="text" name="from_location" value="{!! $fl !!}" class="form-control" placeholder="Start Destination">
+                                    <input type="text" name="from_location" value="{!! $result->from_location !!}" class="form-control" placeholder="Start Destination">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="to_location" class="form-control" placeholder="End Destination">
+                                    <input type="text" name="to_location" value="{!! $result->to_location !!}" class="form-control" placeholder="End Destination">
                                 </div>
                                 <div class="clearfix"></div>
                                 <div><strong>Start of Transfer</strong></div>
                                 <div class="form-group">
-                                    <input readonly="readonly" type="text" name="transfer_date" class="form-control __from_date" value="{!! date('d-m-Y') !!}" placeholder="Date">
+                                    <input readonly="readonly" type="text" name="transfer_date" class="form-control __from_date" value="{!! dateFormat($result->transfer_datetime, 'd-m-Y') !!}" placeholder="Date">
                                 </div>
                                 <div class="form-group">
-                                    <input readonly="readonly" type="text" name="transfer_time" class="form-control timepicker" autocomplete="off" id="time" placeholder="Time">
+                                    <input readonly="readonly" type="text" name="transfer_time" class="form-control timepicker" value="{!! dateFormat($result->transfer_datetime, 'H:i A') !!}" autocomplete="off" id="time" placeholder="Time">
                                 </div>
 
                                 <div><strong>End of Transfer</strong></div>
                                 <div class="form-group">
-                                    <input readonly="readonly" type="text" name="return_date" class="form-control __to_date" value="{!! date('d-m-Y') !!}" placeholder="Date">
+                                    <input readonly="readonly" type="text" name="return_date" class="form-control __to_date" value="{!! dateFormat($result->return_datetime, 'd-m-Y') !!}" placeholder="Date">
                                 </div>
                                 <div class="form-group">
                                     <input readonly="readonly" type="text" class="form-control timepicker" autocomplete="off" id="time"
-                                           name="return_time" value="" placeholder="Time" required="">
+                                           name="return_time" value="" placeholder="Time" required="" value="{!! dateFormat($result->return_datetime, 'H:i A') !!}">
                                 </div>
 
                                 <div class="clearfix"></div>
@@ -226,7 +244,7 @@
                                             </button>
                                         </span>
                                     <input type="text" id="quantity3" name="no_of_adult"
-                                           class="form-control input-number" value="2" min="1" max="100">
+                                           class="form-control input-number" value="{!! $result->no_of_adult !!}" min="1" max="100">
                                         <span class="input-group-btn">
                                             <button type="button" class="quantity-right-plus3 btn btn-success btn-number"
                                                     data-type="plus" data-field="">
@@ -245,7 +263,7 @@
                                             </button>
                                         </span>
                                     <input type="text" id="quantity4" name="no_of_children"
-                                           class="form-control input-number" value="2" min="1" max="100">
+                                           class="form-control input-number" value="{!! $result->no_of_children !!}" min="1" max="100">
                                         <span class="input-group-btn">
                                             <button type="button"
                                                     class="quantity-right-plus4 btn btn-success btn-number" data-type="plus"
@@ -279,24 +297,24 @@
                                         <div class="input-group mb-3">
                                             <div class="">
                                                 <div class="input-group-text">
-                                                    <input type="checkbox" name="is_flight"
+                                                    <input type="checkbox" name="is_flight" {!! ($result->is_flight == 1) ? 'checked' : '' !!}
                                                            aria-label="Checkbox for following text input" id="flight2"
                                                            onclick="flightt2()">&nbsp; Flight or train number &nbsp;<br>
-                                                    <div> <input type="text" name="flight_number" id="flightno2" style="display:none; animation-duration: 3s; animation-name: slidein;" placeholder="Flight / Train Number" class="form-control input-number"></div>
+                                                    <div> <input type="text" name="flight_number" id="flightno2" style="{!! ($result->is_flight == 0) ? 'display:none;' : '' !!} animation-duration: 3s; animation-name: slidein;" placeholder="Flight / Train Number" class="form-control input-number"></div>
                                                 </div>
                                                 <div class="input-group-text">
                                                     <input type="checkbox" name="is_meeting"
-                                                           aria-label="Checkbox for following text input" id="meeting2"
+                                                           aria-label="Checkbox for following text input" id="meeting2" {!! ($result->is_meeting == 1) ? 'checked' : '' !!}
                                                            onclick="meetingg2()">&nbsp; Meeting with a name sign is required &nbsp; <br>
-                                                    <div> <input type="text" name="passenger_name" id="meeeting2" style="display:none"
+                                                    <div> <input type="text" name="passenger_name" id="meeeting2" style="{!! ($result->is_meeting == 0) ? 'display:none"' : '' !!}"
                                                                  placeholder="Please fill the passenger's name"
                                                                  class="form-control input-number"></div>
                                                 </div>
                                                 <div class="input-group-text">
                                                     <input type="checkbox" name="is_promo_code"
-                                                           aria-label="Checkbox for following text input" id="promo2"
+                                                           aria-label="Checkbox for following text input" id="promo2" {!! ($result->is_promo_code == 1) ? 'checked' : '' !!}
                                                            onclick="promoo2()">&nbsp; Promo code &nbsp; <br>
-                                                    <div> <input type="text" name="promo_code" id="promocode2" style="display:none"
+                                                    <div> <input type="text" name="promo_code" id="promocode2" style="{!! ($result->is_promo_code == 0) ? 'display:none"' : '' !!}"
                                                                  placeholder="Enter promo code"
                                                                  class="form-control input-number"></div>
                                                 </div>
@@ -317,7 +335,7 @@
                                 {!! Form::close() !!}
                             </div>
                         </div>
-                     
+                    </div>
                 </div>
             </div>
         </section>

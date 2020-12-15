@@ -100,7 +100,7 @@
 
 						<div class="form-section">
 							{!! Form::open(['route' => 'front.login', 'method' => 'post', 'id' => 'login-submit', 'files' => 'true']) !!}
-							<div class="alert alert-danger 207_error" style="display: none;"></div>
+							<div class="alert alert-danger 207_login_error" style="display: none;"></div>
 							<div class="form-group">
 									<input type="text" name="email" class="form-control" placeholder="Email/Phone">
 								</div>
@@ -150,7 +150,7 @@
 						<p></p>
 						<div class="form-section">
 							{!! Form::open(['route' => 'front.register', 'method' => 'post', 'id' => 'register-submit', 'files' => 'true']) !!}
-							<div class="alert alert-danger 207_error" style="display: none;"></div>
+							<div class="alert alert-danger 207_register_error" style="display: none;"></div>
 
 							<div class="form-group">
 									<input type="text" name="name" class="form-control" placeholder="Full name*">

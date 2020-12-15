@@ -7,10 +7,5 @@ f8kao4f2zqeu
 Rajiv@Kar1
 
 
-4
-5
-9
-10
-14
-
-
+driver verify or not
+status set 0/1

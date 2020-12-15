@@ -26,6 +26,7 @@ class User extends Authenticatable implements JWTSubject
         'password', 
         'mobile_number',
         'otp_code',
+        'forgot_otp',
         'device_type',
         'cashback_amount',
     ];
@@ -56,11 +57,37 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function findCustomer($mobileNumber) 
+    public function scopeCustomer($query) {
+        return $query->where('users.user_type', 'customer');
+    }
+
+    public function scopeAgency($query) {
+        return $query->where('users.user_type', 'agency');
+    }
+
+    public function findCustomer($email)
+    {
+        return $this
+            ->where('users.email', $email)
+            ->customer()
+            ->first();
+    }
+
+    public function findAgency($mobileNumber)
     {
         return $this
             ->where('users.mobile_number', $mobileNumber)
+            ->agency()
             ->first();
+    }
+
+    public function getUser($id, $userType)
+    {
+        $fields = ['users.*'];
+        return $this
+            ->where('users.id', $id)
+            ->where('users.user_type', $userType)
+            ->first($fields);
     }
 
     public function getCustomer($customerId) 
@@ -71,11 +98,21 @@ class User extends Authenticatable implements JWTSubject
             ->first($fields);
     }
 
-    public function customerVerify($mobileNumber, $otpCode) 
+    public function agencyVerify($mobileNumber, $otpCode)
     {
         return $this
             ->where('users.mobile_number', $mobileNumber)
             ->where('users.otp_code', $otpCode)
+            ->agency()
+            ->first();
+    }
+
+    public function customerVerify($email, $otpCode)
+    {
+        return $this
+            ->where('users.email', $email)
+            ->where('users.otp_code', $otpCode)
+            ->customer()
             ->first();
     }
 
@@ -233,6 +270,15 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this
             ->where('users.email', $email)
+            ->where('users.user_type', 'customer')
+            ->first();
+    }
+
+    public function customerEmailOtpExist($email, $otpCode)
+    {
+        return $this
+            ->where('users.email', $email)
+            ->where('users.forgot_otp', $otpCode)
             ->where('users.user_type', 'customer')
             ->first();
     }

@@ -87,7 +87,8 @@ class Booking extends Model
     public function frontBookByRoute($inputs = []) {
         $rules = [
             'email' => 'required|email',
-            'mobile_number' => 'required|digits:10',
+            // 'mobile_number' => 'required|digits:13',
+            'mobile_number' => 'required|regex:/^\+\d{1,3}\d{8,10}$/',
             'from_location' => 'required|min:1',
             'to_location' => 'required|min:1',
             'transfer_date' => 'required|date',
@@ -121,7 +122,8 @@ class Booking extends Model
     public function frontBookPerHour($inputs = []) {
         $rules = [
             'email' => 'required|email',
-            'mobile_number' => 'required|digits:10',
+            // 'mobile_number' => 'required|digits:13',
+            'mobile_number' => 'required|regex:/^\+\d{1,3}\d{8,10}$/',
             'from_location' => 'required|min:1',
             'to_location' => 'required|min:1',
             'transfer_date' => 'required|date',
@@ -172,6 +174,7 @@ class Booking extends Model
             ->where('booking.customer_id', $customerId)
             ->where('booking.booking_status', 'pending')
             ->groupBy('booking.id')
+            ->orderBy('booking.id', 'desc')
             ->get($fields);
     }
 
@@ -186,6 +189,7 @@ class Booking extends Model
             ->leftJoin('category', 'category.id', '=', 'booking.vehicle_category_id')
             ->where('booking.customer_id', $customerId)
             ->where('booking.booking_status', 'hired')
+            ->orderBy('booking.id', 'desc')
             ->get($fields);
     }
 
@@ -200,10 +204,11 @@ class Booking extends Model
             ->leftJoin('category', 'category.id', '=', 'booking.vehicle_category_id')
             ->where('booking.customer_id', $customerId)
             ->whereIn('booking.booking_status', ['completed', 'canceled'])
+            ->orderBy('booking.id', 'desc')
             ->get($fields);
     }
 
-    public function customerBooking($bookingId, $customerId)
+    public function customerBooking($customerId, $bookingId)
     {
         $fields = [
             'booking.*',
@@ -214,5 +219,73 @@ class Booking extends Model
             ->where('booking.id', $bookingId)
             ->where('booking.customer_id', $customerId)
             ->first($fields);
+    }
+
+    public function frontBookByRouteEdit($inputs = []) {
+        $rules = [
+            'email' => 'required|email',
+            // 'mobile_number' => 'required|digits:13',
+            'mobile_number' => 'required|regex:/^\+\d{1,3}\d{8,10}$/',
+            'from_location' => 'required|min:1',
+            'to_location' => 'required|min:1',
+            'transfer_date' => 'required|date',
+            'transfer_time' => 'required',
+            'no_of_adult' => 'required|numeric|min:1|max:100',
+            'no_of_children' => 'required|numeric|min:1|max:100',
+            'vehicle_category' => 'required|numeric|min:1',
+        ];
+
+        if(isset($inputs['is_return_way'])) {
+            $rules['return_date'] = 'required|date';
+            $rules['return_time'] = 'required';
+        }
+
+        if(isset($inputs['is_flight'])) {
+            $rules['flight_number'] = 'required|min:1';
+        }
+
+        if(isset($inputs['is_meeting'])) {
+            $rules['passenger_name'] = 'required|min:1';
+        }
+
+        if(isset($inputs['is_promo_code'])) {
+            $rules['promo_code'] = 'required|min:1';
+        }
+
+        return validator($inputs, $rules);
+    }
+
+    public function frontBookPerHourEdit($inputs = []) {
+        $rules = [
+            'email' => 'required|email',
+            // 'mobile_number' => 'required|digits:13',
+            'mobile_number' => 'required|regex:/^\+\d{1,3}\d{8,10}$/',
+            'from_location' => 'required|min:1',
+            'to_location' => 'required|min:1',
+            'transfer_date' => 'required|date',
+            'transfer_time' => 'required',
+
+            'return_date' => 'required|date',
+            'return_time' => 'required',
+
+            'no_of_adult' => 'required|numeric|min:1|max:100',
+            'no_of_children' => 'required|numeric|min:1|max:100',
+            'vehicle_category' => 'required|numeric|min:1',
+            // 'requirement' => 'required|min:1',
+        ];
+
+        if(isset($inputs['is_flight'])) {
+            $rules['flight_number'] = 'required|min:1';
+        }
+
+        if(isset($inputs['is_meeting'])) {
+            $rules['passenger_name'] = 'required|min:1';
+        }
+
+        if(isset($inputs['is_promo_code'])) {
+            $rules['promo_code'] = 'required|min:1';
+        }
+
+        return validator($inputs, $rules);
     }
 }

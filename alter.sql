@@ -172,3 +172,5 @@ alter table users add column rozarpay_customer_id varchar(255) default '' after 
 alter table orders add column razorpay_order_id varchar(255) default '' after id;
 
 alter table users add column password_hidden varchar(20) default '' after password;
+alter table users add column forgot_otp varchar(10) default '' after password;
+ALTER TABLE users CHANGE user_type user_type ENUM('admin','customer','agency') DEFAULT NULL;

@@ -4,20 +4,39 @@ namespace App;
 
 class Validation
 {
-    public function customerRegister($inputs = []) {
+    public function register($inputs = []) {
         $rules = [
-            'mobile_number' => 'required|numeric|digits:10',
+            'name' => 'nullable|min:1|max:255|regex:/^[a-zA-Z ]+$/',
             'device_type' => 'required|in:android,ios',
+            'user_type' => 'required|in:customer,agency',
         ];
+
+        if(isset($inputs['user_type'])) {
+            if($inputs['user_type'] == 'customer') {
+                $rules['email'] = 'required|email';
+            }
+            else if($inputs['user_type'] == 'agency') {
+                $rules['mobile_number'] = 'required|numeric|digits:10';
+            }
+        }
         return validator($inputs, $rules);
     }
 
-    public function customerVerify($inputs = []) {
+    public function otpVerify($inputs = []) {
         $rules = [
-            'mobile_number' => 'required|numeric|digits:10',
+            'user_type' => 'required|in:customer,agency',
             'otp_code' => 'required|numeric|digits:4',
-            'fcm_token' => 'required',
+            // 'fcm_token' => 'required',
         ];
+
+        if(isset($inputs['user_type'])) {
+            if($inputs['user_type'] == 'customer') {
+                $rules['email'] = 'required|email';
+            }
+            else if($inputs['user_type'] == 'agency') {
+                $rules['mobile_number'] = 'required|numeric|digits:10';
+            }
+        }
         return validator($inputs, $rules);
     }
 
@@ -208,6 +227,16 @@ class Validation
     {
         $rules = [
             'email' => 'required|email',
+        ];
+        return validator($inputs, $rules);
+    }
+
+    public function frontForgotPasswordOtp($inputs = [])
+    {
+        $rules = [
+            'email' => 'required|email',
+            'otp_code' => 'required|digits:4',
+            'password' => 'required|min:3',
         ];
         return validator($inputs, $rules);
     }

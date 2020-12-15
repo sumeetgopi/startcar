@@ -456,7 +456,7 @@ $(document).ready(function() {
                         hideLoader();
 
                         if (data.message != '') {
-                            $('.207_error').html(data.message).show();
+                            $('.207_login_error').html(data.message).show();
                         }
                     }
                 }
@@ -523,7 +523,7 @@ $(document).ready(function() {
                         hideLoader();
 
                         if (data.message != '') {
-                            $('.207_error').html(data.message).show();
+                            $('.207_register_error').html(data.message).show();
                         }
                     }
                 }
@@ -557,6 +557,30 @@ $(document).ready(function() {
                 }
             });
         }
+    });
+
+    let cancel_route = '';
+    $('body').on('click', '.__cancel', function(e) {
+        e.preventDefault();
+        cancel_route = $(this).attr('data-url');
+        $('.__cancel_modal').modal('show');
+    });
+
+    $('body').on('click', '.__cancel_yes_btn', function(e) {
+        $.ajax({
+            type: 'get',
+            url: cancel_route,
+            data: {},
+            success: function(data) {
+                if (data.success && data.status == 201) {
+                    // alert(data.message);
+                    window.location.reload();
+                }
+            },
+            error: function(data) {
+                console.log('An error occurred.');
+            }
+        });
     });
 
     $('body').on('click', '.__toggle', function(e) {

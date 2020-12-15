@@ -126,7 +126,9 @@
                                                                         @endif
 
                                                                         <div class="form-group">
-                                                                            <button type="submit" class="btn btn-danger">Cancel Ride</button>
+                                                                            <a class="btn btn-danger __cancel" href="javascript:void(0);" 
+                                                                            data-url="{!! route('front.book-cancel', $row->id) !!}"> Cancel Ride</a>
+
                                                                             <a href="{!! route('front.book-edit', $row->id) !!}" class="btn btn-info">Edit Ride</a>
                                                                         </div>
                                                                     </div>
@@ -202,6 +204,10 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
+                                        @else 
+                                            <tr>
+                                                <td colspan="6" class="text-center"> No Records </td>
+                                            </tr>
                                         @endif
                                     </table>
                                 </div>

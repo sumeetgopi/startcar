@@ -305,41 +305,10 @@ class FrontController extends Controller
             $e = authCustomerEmail();
         }
 
-        $m = authCustomerMobile();
-        $fl = session('book.from_location', '');
-        $tl = session('book.to_location', '');
-        $vc = session('book.vehicle_category_id', '');
-        $t = session('book.booking_type', 'route');
-
-        return view('front.book-edit', compact('result', 'e', 'fl', 'tl', 'vc', 't', 'm'));
-    }
-
-    public function bookEditPost($id) 
-    {
-        $customerId = authCustomerId();
-        $result = (new Booking)->customerBooking($customerId, $id);
-        if(!$result) {
-            return redirect()->route('front.pending');
-        }
-
-        return view('front.book-edit', compact('result',));
-    }
-
-    public function bookCancel($id) 
-    {
-        $customerId = authCustomerId();
-        $result = (new Booking)->customerBooking($customerId, $id);
-        if(!$result) {
-            return jsonResponse(false, 207, __('message.invalid_details'));
-        }
-
-        try {
-            \DB::beginTransaction();            
-            \DB::commit();            
-        }
-        catch(\Exception $e) {
-
-        }
+        $vc = $result->vehicle_category_id;
+        $t = $result->booking_type;
+        
+        return view('front.book-edit', compact('result', 'e', 'vc', 't'));
     }
 
     public function faqs() {
@@ -455,24 +424,229 @@ class FrontController extends Controller
             \DB::beginTransaction();
 
             // user code start
-            $password = rand(111111, 999999);
+            $otpCode = rand(1111, 9999);
             $update = [
-                'password' => \Hash::make($password)
+                'forgot_otp' => $otpCode
             ];
 
             (new User)->store($update, $result->id);
             // user code end
+            
+            session()->put('forgot_email', $inputs['email']);
 
             // send mail code start
-            sendRegisterMail($inputs['email'], $password);
+            sendForgotMail($inputs['email'], $otpCode);
             // send mail code end
+
 
             \DB::commit();
 
-            $extra = ['redirect' => route('front.forgot-password')];
+            $extra = ['redirect' => route('front.forgot-password-verify')];
+            $message = __('message.forgot_otp_send');
+
+            return jsonResponse(true, 201, $message, $extra);
+        }
+        catch(\Exception $e) {
+            \DB::rollBack();
+            return jsonResponse(false, 207, __('message.server_error'));
+        }
+    }
+    
+    public function forgotPasswordVerify()
+    {
+        $email = session('forgot_email', '');
+        return view('front.forgot-password-verify', compact('email'));
+    }
+
+    public function forgotPasswordVerifyPost(Request $request)
+    {
+        $inputs = $request->all();
+        $validation = (new Validation)->frontForgotPasswordOtp($inputs);
+        if($validation->fails()) {
+            return jsonResponse(false, 206, $validation->getMessageBag());
+        }
+
+        $result = (new User)->customerEmailOtpExist($inputs['email'], $inputs['otp_code']);
+        if (!$result) {
+            $message = __('message.invalid_details');
+            return jsonResponse(false, 207, $message);
+        }
+
+        try {
+            \DB::beginTransaction();
+
+            // user code start
+            $update = [
+                'password' => \Hash::make($inputs['password'])
+            ];
+            (new User)->store($update, $result->id);
+            // user code end
+            
+            session()->remove('forgot_email');
+            \DB::commit();
+
+            $extra = ['redirect' => route('front.login')];
             $message = __('message.password_updated');
 
             return jsonResponse(true, 201, $message, $extra);
+        }
+        catch(\Exception $e) {
+            \DB::rollBack();
+            return jsonResponse(false, 207, __('message.server_error'));
+        }
+    }
+
+    public function bookCancel($id) 
+    {
+        $customerId = authCustomerId();
+        $result = (new Booking)->customerBooking($customerId, $id);
+        if(!$result) {
+            return jsonResponse(true, 201, __('message.invalid_details'));
+        }
+
+        (new Booking)->store(['booking_status' => 'canceled'], $id);
+        $message = __('message.book_canceled');
+        return jsonResponse(true, 201, $message);
+    }
+
+    public function bookByRouteEdit(Request $request, $id) {
+        $inputs = $request->all();
+        $validation = (new Booking)->frontBookByRouteEdit($inputs);
+        if($validation->fails()) {
+            return jsonResponse(false, 206, $validation->getMessageBag());
+        }
+
+        $customerId = authCustomerId();
+        $result = (new Booking)->customerBooking($customerId, $id);
+        if(!$result) {
+            return jsonResponse(false, 207, __('message.invalid_details'));
+        }
+
+        $transferDate = $inputs['transfer_date'] . ' ' . $inputs['transfer_time'];
+        $booking = [
+            'customer_id' => authCustomerId(),
+            'vehicle_category_id' => $inputs['vehicle_category'],
+            'customer_mobile_number' => $inputs['mobile_number'],
+
+            'from_location' => $inputs['from_location'],
+            'from_lat' => '75.36',
+            'from_lon' => '31.38',
+
+            'to_location' => $inputs['to_location'],
+            'to_lat' => '74.36',
+            'to_lon' => '32.38',
+
+            'transfer_datetime' => dateFormat($transferDate, 'Y-m-d H:i:s'),
+            'no_of_adult' => $inputs['no_of_adult'],
+            'no_of_children' => $inputs['no_of_children'],
+            'requirement' => $inputs['requirement'],
+
+            'is_return' => '0',
+            'return_datetime' => null,
+
+            'is_flight' => '0',
+            'flight_no' => '',
+
+            'is_meeting' => '0',
+            'passenger_name' => '',
+
+            'is_promo_code' => '0',
+            'promo_code' => '',
+        ];
+
+        if(isset($inputs['is_return_way'])) {
+            $booking['is_return_way'] = 1;
+            $returnDate = $inputs['return_date'] . ' ' . $inputs['return_time'];
+            $booking['return_datetime'] = dateFormat($returnDate, 'Y-m-d H:i:s');
+        }
+        if(isset($inputs['is_flight'])) {
+            $booking['is_flight'] = 1;
+            $booking['flight_no'] = $inputs['flight_number'];
+        }
+        if(isset($inputs['is_meeting'])) {
+            $booking['is_meeting'] = 1;
+            $booking['passenger_name'] = $inputs['passenger_name'];
+        }
+        if(isset($inputs['is_promo_code'])) {
+            $booking['is_promo_code'] = 1;
+            $booking['promo_code'] = $inputs['promo_code'];
+        }
+
+        try {
+            \DB::beginTransaction();
+            (new Booking)->store($booking, $result->id);
+            \DB::commit();
+
+            $extra = ['redirect' => route('front.pending')];
+            return jsonResponse(true, 201, '', $extra);
+        }
+        catch(\Exception $e) {
+            \DB::rollBack();
+            return jsonResponse(false, 207, __('message.server_error'));
+        }
+    }
+
+    public function bookPerHourEdit(Request $request, $id) {
+        $inputs = $request->all();
+        $validation = (new Booking)->frontBookPerHour($inputs);
+        if($validation->fails()) {
+            return jsonResponse(false, 206, $validation->getMessageBag());
+        }
+
+        $customerId = authCustomerId();
+        $result = (new Booking)->customerBooking($customerId, $id);
+        if(!$result) {
+            return jsonResponse(false, 207, __('message.invalid_details'));
+        }
+
+        $transferDate = $inputs['transfer_date'] . ' ' . $inputs['transfer_time'];
+        $returnDate = $inputs['return_date'] . ' ' . $inputs['return_time'];
+        $booking = [
+            'customer_id' => authCustomerId(),
+            'booking_number' => (new Booking)->bookingNumber(),
+            'vehicle_category_id' => $inputs['vehicle_category'],
+            'booking_type' => 'hour',
+            'booking_status' => 'pending',
+            'customer_mobile_number' => $inputs['mobile_number'],
+
+            'from_location' => $inputs['from_location'],
+            'from_lat' => '75.36',
+            'from_lon' => '31.38',
+
+            'to_location' => $inputs['to_location'],
+            'to_lat' => '74.36',
+            'to_lon' => '32.38',
+
+            'transfer_datetime' => dateFormat($transferDate, 'Y-m-d H:i:s'),
+
+            'is_return_way' => 1,
+            'return_datetime' => dateFormat($returnDate, 'Y-m-d H:i:s'),
+
+            'no_of_adult' => $inputs['no_of_adult'],
+            'no_of_children' => $inputs['no_of_children'],
+            'requirement' => $inputs['requirement'],
+        ];
+
+        if(isset($inputs['is_flight'])) {
+            $booking['is_flight'] = 1;
+            $booking['flight_no'] = $inputs['flight_number'];
+        }
+        if(isset($inputs['is_meeting'])) {
+            $booking['is_meeting'] = 1;
+            $booking['passenger_name'] = $inputs['passenger_name'];
+        }
+        if(isset($inputs['is_promo_code'])) {
+            $booking['is_promo_code'] = 1;
+            $booking['promo_code'] = $inputs['promo_code'];
+        }
+
+        try {
+            \DB::beginTransaction();
+            (new Booking)->store($booking, $result->id);
+            \DB::commit();
+
+            $extra = ['redirect' => route('front.pending')];
+            return jsonResponse(true, 201, '', $extra);
         }
         catch(\Exception $e) {
             \DB::rollBack();

@@ -19,12 +19,19 @@ Route::post('home-book', 'FrontController@homeBook')->name('front.home-book');
 Route::get('forgot-password', 'FrontController@forgotPassword')->name('front.forgot-password');
 Route::post('forgot-password-post', 'FrontController@forgotPasswordPost')->name('front.forgot-password.post');
 
+Route::get('forgot-password-verify', 'FrontController@forgotPasswordVerify')->name('front.forgot-password-verify');
+Route::post('forgot-password-verify-post', 'FrontController@forgotPasswordVerifyPost')->name('front.forgot-password-verify.post');
+
 Route::middleware(['customer'])->group(function () {
     Route::get('book', 'FrontController@book')->name('front.book');
     Route::get('book-edit/{id}', 'FrontController@bookEdit')->name('front.book-edit');
+    Route::get('book-cancel/{id}', 'FrontController@bookCancel')->name('front.book-cancel');
 
     Route::post('book-by-route', 'FrontController@bookByRoute')->name('front.book-by-route');
     Route::post('book-per-hour', 'FrontController@bookPerHour')->name('front.book-per-hour');
+
+    Route::post('book-by-route-edit/{id}', 'FrontController@bookByRouteEdit')->name('front.book-by-route.edit');
+    Route::post('book-per-hour-edit/{id}', 'FrontController@bookPerHourEdit')->name('front.book-per-hour.edit');
 
     Route::post('logout', 'FrontController@logout')->name('front.logout');
     Route::get('pending', 'FrontController@pending')->name('front.pending');

@@ -1,7 +1,6 @@
 <?php
 
 use App\BookingQuotation;
-use App\Cart;
 use App\Category;
 use App\Notification;
 use App\Setting;
@@ -45,49 +44,6 @@ function status() {
         0 => 'In Active',
         1 => 'Active'
     ];
-}
-
-function orderStatus() {
-    return [
-        'pending' => 'Pending',
-        'accepted' => 'Accepted',
-        'delivery' => 'Delivery',
-        'completed' => 'Completed',
-        'canceled' => 'Canceled',
-    ];
-}
-
-function editOrderStatus($status) {
-    if($status == 'pending') { 
-        $types = [
-            '' => '-Select Status -',
-            'accepted' => 'Accepted',
-            'canceled' => 'Canceled',
-        ];
-    }
-    else if($status == 'accepted') { 
-        $types = [
-            '' => '-Select Status -',
-            'delivery' => 'Delivery',
-            'canceled' => 'Canceled',
-        ];
-    } 
-    else if($status == 'delivery') { 
-        $types = [
-            '' => '-Select Status -',
-            'completed' => 'Completed',
-            'pending' => 'Pending',
-            'canceled' => 'Canceled',
-        ];
-    }
-    else if($status == 'completed') { 
-        $types = [];
-    }
-    else if($status == 'canceled') { 
-        $types = []; 
-    }
-
-    return $types;
 }
 
 function webImgUpload(Request $request, $column, $path) {
@@ -256,17 +212,18 @@ function errors($errors) {
     return $result;
 }
 
-
-function getCustomer($customerId) {
+function getUser($id, $userType) {
     $response = [];
-    $customer = (new User)->getCustomer($customerId);
-    if($customer) {
+    $user = (new User)->getUser($id, $userType);
+    if($user) {
         $response = [
-            'name' => (string) $customer->name ?? '',
-            'email' => (string) $customer->email ?? '',
-            'mobile_number' => (string) $customer->mobile_number ?? '',
-            'image' => (string) apiImg($customer->image, env('CUSTOMER_PATH')) ?? '',
-            'rozarpay_customer_id' => (string) $customer->rozarpay_customer_id ?? '',
+            'name' => (string) $user->name ?? '',
+            'email' => (string) $user->email ?? '',
+            'mobile_number' => (string) $user->mobile_number ?? '',
+            'user_type' => (string) $user->user_type ?? '',
+            'device_type' => (string) $user->device_type ?? '',
+            'image' => (string) apiImg($user->image, env('USER_PATH')) ?? '',
+            //'rozarpay_customer_id' => (string) $customer->rozarpay_customer_id ?? '',
         ];
     }
     return $response;
@@ -337,152 +294,21 @@ function apiImg($img, $path, $default = 'uploads/default.png') {
     return $image;
 }
 
-function customerToken($customer) { return 'bearer ' . auth('api')->fromUser($customer); }
-function customerLogout($token) { return auth('api')->invalidate($token); }
-function customerId() { return auth('api')->user()->id; }
-function customerMobileNumber() { return auth('api')->user()->mobile_number; }
-function customerFcmToken() { return auth('api')->user()->fcm_token; }
-function customerCashbackAmount() { return auth('api')->user()->cashback_amount; }
+function jwtToken($customer) { return 'bearer ' . auth('api')->fromUser($customer); }
+function jwtLogout($token) { return auth('api')->invalidate($token); }
+function jwtId() { return auth('api')->user()->id; }
+function jwtMobileNumber() { return auth('api')->user()->mobile_number; }
+function jwtFcmToken() { return auth('api')->user()->fcm_token; }
 
+function jwtUserType() { return auth('api')->user()->user_type; }
+function isJwtAgency() { return (auth('api')->user()->user_type == 'agency'); }
+function isJwtCustomer() { return (auth('api')->user()->user_type == 'customer'); }
 
 function isAuthCustomerLogin() { return \Auth::check(); }
 function authCustomerId() { return \Auth::id(); }
 function authCustomerName() { return \Auth::user()->name; }
 function authCustomerEmail() { return \Auth::user()->email; }
 function authCustomerMobile() { return \Auth::user()->mobile_number; }
-
-function cartDetail($customerId) {
-    $result = (new Cart)->cartDetail($customerId);
-    
-    $detail = [];
-    $totalItem = $totalMrpPrice = $totalOurPrice = $totalDiscountedPrice = 0;
-    if($result) {
-        $path = env('PRODUCT_PATH');
-        foreach($result as $row) {
-            $productImage = [
-                [
-                    'image' => (string) apiImg($row->product_image, $path, 'uploads/banner/center_image.png') ?? ''
-                ]
-            ];
-
-            $cartInfo = cartInfo($row->id, $customerId);
-            $detail[] = [
-                'cart_id' => (int) $row->cart_id ?? 0,
-                'quantity' => (string) (int) $row->quantity ?? 0,
-                'product' => getProduct($row, $productImage, $cartInfo)
-            ];
-
-            $totalItem = $totalItem + ($row->quantity);
-            $mrpPrice = ($row->mrp_price * $row->quantity);
-            $ourPrice = ($row->our_price * $row->quantity);
-            $totalMrpPrice +=  $mrpPrice;
-            $totalOurPrice +=  $ourPrice;
-            $totalDiscountedPrice += ($mrpPrice - $ourPrice);
-        }
-    }
-
-    return [
-        'detail' => $detail ?? [],
-        'summary' => [
-            'total_item' => (string) $totalItem ?? 0,
-            'total_mrp_price' => (string) round($totalMrpPrice, 2) ?? 0,
-            'total_our_price' => (string) round($totalOurPrice, 2) ?? 0,
-            'total_discounted_price' => (string) round($totalDiscountedPrice, 2) ?? 0
-        ]
-    ];
-}
-
-function cartDetailSingle($cartId, $customerId, $type) {
-    $result = (new Cart)->cartDetailSingle($cartId, $customerId);
-    $detail = new ArrayObject();
-    
-    if($result) {
-        $path = env('PRODUCT_PATH');
-        foreach($result as $row) {
-            $productImage = [[
-                'image' => (string) apiImg($row->product_image, $path, 'uploads/banner/center_image.png') ?? ''
-            ]];
-
-            if($type == 'delete') {
-                $cartInfo = [
-                    'has_in_cart' => (bool) false,
-                    'cart_id' => (int) 0,
-                    'cart_quantity' => (string) 0
-                ];
-            }
-            else {
-                $cartInfo = cartInfo($row->id, $customerId);
-            }
-
-            $detail = [
-                'cart_id' => (int) $row->cart_id ?? 0,
-                'quantity' => (string) (int) $row->quantity ?? 0,
-                'product' => getProduct($row, $productImage, $cartInfo),
-            ];
-
-            if($type != 'delete') {
-                $detail['summary'] = cartSummary($customerId);
-            }
-        }
-    }
-
-    return $detail;
-}
-
-function cartSummary($customerId) 
-{
-    $totalItem = totalCartItem($customerId);
-    $totalMrpPrice = totalCartMrpPrice($customerId);
-    $totalOurPrice = totalOurPrice($customerId);
-    $totalDiscountedPrice = totalDiscountedPrice($customerId);
-
-    return [
-        'total_item' => (string) $totalItem ?? 0,
-        'total_mrp_price' => (string) round($totalMrpPrice, 2) ?? 0,
-        'total_our_price' => (string) round($totalOurPrice, 2) ?? 0,
-        'total_discounted_price' => (string) round($totalDiscountedPrice, 2) ?? 0
-    ];
-}
-
-function totalCartItem($customerId) {
-    $result = (new Cart)->totalCartItem($customerId);
-    return ($result) ? $result->total_cart_item : '0';
-}
-
-function totalCartMrpPrice($customerId) {
-    $result = (new Cart)->totalCartMrpPrice($customerId);
-    return ($result) ? $result->total_cart_mrp_price : '0';
-}
-
-function totalOurPrice($customerId) {
-    $result = (new Cart)->totalOurPrice($customerId);
-    return ($result) ? $result->total_cart_our_price : '0';
-}
-
-function totalDiscountedPrice($customerId) {
-    $result = (new Cart)->totalDiscountedPrice($customerId);
-    return ($result) ? ($result->total_cart_mrp_price - $result->total_cart_our_price) : '0';
-}
-
-function cartInfo($productId, $customerId)
-{
-    $hasInCart = false;
-    $cartId = 0;
-    $cartQuantity = 0;
-
-    $result = (new Cart)->cartInfo($productId, $customerId);
-    if($result) {
-        $hasInCart = true;
-        $cartId = $result->id;
-        $cartQuantity = $result->quantity;
-    }
-
-    return [
-        'has_in_cart' => (bool) $hasInCart ?? false,
-        'cart_id' => (int) $cartId ?? 0,
-        'cart_quantity' => (string) $cartQuantity ?? 0
-    ];
-}
 
 function amount($number) {
     $n1 = (int) $number ?? 0;
@@ -495,61 +321,6 @@ function amount($number) {
         $number = (int) $n1;
     }
     return (string) $number;
-}
-
-function discountType($type = '', $heading = false) {
-    $types = [
-        'fixed' => 'Fixed',
-        'percent' => 'Percent'
-    ];
-
-    if($heading) { $types = ['' => '-Select Discount Type-'] + $types; }
-    if($type != '') { return $types[$type]; }
-    return $types;
-}
-
-function applyType($type = '', $heading = false) {
-    $types = [
-        'single' => 'Single',
-        'multiple' => 'Multiple'
-    ];
-
-    if($heading) { $types = ['' => '-Select Apply Type-'] + $types; }
-    if($type != '') { return $types[$type]; }
-    return $types;
-}
-
-function couponType($type = '', $heading = false) {
-    $types = [
-        'cashback' => 'Cashback',
-        'coupon' => 'Coupon'
-    ];
-
-    if($heading) { $types = ['' => '-Select Coupon Type-'] + $types; }
-    if($type != '') { return $types[$type]; }
-    return $types;
-}
-
-function smsSendType($type = '', $heading = false) {
-    $types = [
-        'all' => 'All',
-        'selected' => 'Selected'
-    ];
-
-    if($heading) { $types = ['' => '-Select Send Type-'] + $types; }
-    if($type != '') { return $types[$type]; }
-    return $types;
-}
-
-function notificationSendType($type = '', $heading = false) {
-    $types = [
-        'all' => 'All',
-        'selected' => 'Selected'
-    ];
-
-    if($heading) { $types = ['' => '-Select Send Type-'] + $types; }
-    if($type != '') { return $types[$type]; }
-    return $types;
 }
 
 function radio($name, $array = [], $match = null, $attr = '') {
@@ -666,15 +437,6 @@ function sendSMS($mobile, $msg, $countryCode = '91')
         return $response;
     }
 }
-
-function customerMobileService() {
-    return (new User)->customerMobileService();
-}
-
-function customerFcmTokenService() {
-    return (new User)->customerFcmTokenService();
-}
-
 function arrayPaginator($array, $request, $perPage = 20)
 {
     $page = $request->get('page', 1);
@@ -690,26 +452,6 @@ function arrayPaginator($array, $request, $perPage = 20)
             'query' => $request->query()
         ]
     );
-}
-
-function cancelReason() {
-    return [
-        ['id' => 1, 'text' => 'Cancel reason1'],
-        ['id' => 2, 'text' => 'Cancel reason2'],
-        ['id' => 3, 'text' => 'Cancel reason3'],
-    ];
-}
-
-function webCancelReason($type = null) {
-    $types = [
-        '' => '-Select Cancel Reason-',
-        '1' => 'Cancel reason1',
-        '2' => 'Cancel reason2',
-        '3' => 'Cancel reason3',
-    ];
-
-    if($type != '') { return $types[$type]; }
-    return $types;
 }
 
 function frontBookingType($type = null) {
@@ -729,19 +471,6 @@ function replaceSpecialChar($str = '') {
                             'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
                             'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
     return strtr( $str, $unwanted_array);
-}
-
-function orderCount($type = null) {
-    $types = [
-        '' => '-All-',
-        '1_order' => 'Single Order',
-        '1_5_order' => '1-5 Orders',
-        '5_10_order' => '5-10 Orders',
-        'more_than_10_order' => 'More than 10 Orders',
-    ];
-
-    if($type != '') { return $types[$type]; }
-    return $types;
 }
 
 function friendlyTime($date_time) {
@@ -768,11 +497,23 @@ function bookingCategory() {
 }
 
 function sendRegisterMail($email, $password) {
-    // send email start
     $subject = "Login Info";
     $msg = "Username/Email: $email\nPassword: $password";
     $msg = wordwrap($msg, 70);
     mail($email, $subject, $msg);
-    // send mail end
+}
+
+function sendRegisterOtpMail($email, $otpCode) {
+    $subject = "Login Info";
+    $msg = "Username/Email: $email\nOTP Code: $otpCode";
+    $msg = wordwrap($msg, 70);
+    mail($email, $subject, $msg);
+}
+
+function sendForgotMail($email, $otpCode) {
+    $subject = "Forgot OTP Info";
+    $msg = "Your OTP code is $otpCode";
+    $msg = wordwrap($msg, 70);
+    mail($email, $subject, $msg);
 }
 ?>
