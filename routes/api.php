@@ -9,6 +9,7 @@ Route::namespace('Api')->group(function() {
 Route::prefix('agency')->namespace('Api')->middleware(['jwt.auth', 'jwt.agency'])->group(function() {
     Route::post('logout', 'AgencyController@logout');
     Route::post('common', 'AgencyController@common');
+    Route::post('agency-update', 'AgencyController@agencyUpdate');
 });
 // agency code end
 
