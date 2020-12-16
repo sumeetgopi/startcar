@@ -174,3 +174,44 @@ alter table orders add column razorpay_order_id varchar(255) default '' after id
 alter table users add column password_hidden varchar(20) default '' after password;
 alter table users add column forgot_otp varchar(10) default '' after password;
 ALTER TABLE users CHANGE user_type user_type ENUM('admin','customer','agency') DEFAULT NULL;
+--------15-12-2020----------GS
+create table brand 
+(
+  id int(11) primary key auto_increment,
+  brand_name varchar(255) not null,
+  status tinyint(4) default 0,
+  created_at timestamp null default null,
+  updated_at timestamp null default null,
+  deleted_at timestamp null default null
+);
+
+create table car_color 
+(
+  id int(11) primary key auto_increment,
+  color_name varchar(255) not null,
+  status tinyint(4) default 0,
+  created_at timestamp null default null,
+  updated_at timestamp null default null,
+  deleted_at timestamp null default null
+);
+
+create table car_type 
+(
+  id int(11) primary key auto_increment,
+  car_type_name varchar(255) not null,
+  status tinyint(4) default 0,
+  created_at timestamp null default null,
+  updated_at timestamp null default null,
+  deleted_at timestamp null default null
+);
+
+create table state 
+(
+  id int(11) primary key auto_increment,
+  state_name varchar(255) not null,
+  status tinyint(4) default 0,
+  created_at timestamp null default null,
+  updated_at timestamp null default null,
+  deleted_at timestamp null default null
+);
+
