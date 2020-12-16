@@ -59,6 +59,58 @@
           </ul>
         </li>
 
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-globe"></i> <span>State</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{!! route('state.create') !!}"><i class="fa fa-circle-o"></i> Create</a></li>
+            <li><a href="{!! route('state.index') !!}"><i class="fa fa-circle-o"></i> List</a></li>
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-adjust custom"></i> <span>Brand</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{!! route('brand.create') !!}"><i class="fa fa-circle-o"></i> Create</a></li>
+            <li><a href="{!! route('brand.index') !!}"><i class="fa fa-circle-o"></i> List</a></li>
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-adjust custom"></i> <span>Car Color</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{!! route('car-color.create') !!}"><i class="fa fa-circle-o"></i> Create</a></li>
+            <li><a href="{!! route('car-color.index') !!}"><i class="fa fa-circle-o"></i> List</a></li>
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-car"></i> <span>Car Type</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{!! route('car-type.create') !!}"><i class="fa fa-circle-o"></i> Create</a></li>
+            <li><a href="{!! route('car-type.index') !!}"><i class="fa fa-circle-o"></i> List</a></li>
+          </ul>
+        </li>
+
         {{--<li class="treeview">
           <a href="#">
             <i class="fa fa-share"></i> <span>Multilevel</span>

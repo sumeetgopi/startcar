@@ -58,6 +58,34 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('category/service', 'CategoryController@service')->name('category.service');
     // category route end
 
+    // state route start
+    Route::resource('state', 'StateController');
+    Route::post('state/status/{id?}', 'StateController@status')->name('state.status');
+    Route::post('state/toggle-status/{id?}/{status?}', 'StateController@toggleStatus')->name('state.toggle-status');
+    Route::post('state/toggle-all-status/{status?}', 'StateController@toggleAllStatus')->name('state.toggle-all-status');
+    // state route end
+
+    // brand route start
+    Route::resource('brand', 'BrandController');
+    Route::post('brand/status/{id?}', 'BrandController@status')->name('brand.status');
+    Route::post('brand/toggle-status/{id?}/{status?}', 'BrandController@toggleStatus')->name('brand.toggle-status');
+    Route::post('brand/toggle-all-status/{status?}', 'BrandController@toggleAllStatus')->name('brand.toggle-all-status');
+    // brand route end
+
+    // car-color route start
+    Route::resource('car-color', 'CarColorController');
+    Route::post('car-color/status/{id?}', 'CarColorController@status')->name('car-color.status');
+    Route::post('car-color/toggle-status/{id?}/{status?}', 'CarColorController@toggleStatus')->name('car-color.toggle-status');
+    Route::post('car-color/toggle-all-status/{status?}', 'CarColorController@toggleAllStatus')->name('car-color.toggle-all-status');    
+    // car-color route end   
+
+    // car-type route start
+    Route::resource('car-type', 'CarTypeController');
+    Route::post('car-type/status/{id?}', 'CarTypeController@status')->name('car-type.status');
+    Route::post('car-type/toggle-status/{id?}/{status?}', 'CarTypeController@toggleStatus')->name('car-type.toggle-status');
+    Route::post('car-type/toggle-all-status/{status?}', 'CarTypeController@toggleAllStatus')->name('car-type.toggle-all-status');    
+    // car-type route end
+
     // customer route start
     Route::resource('customer', 'CustomerController');
     Route::post('customer/status/{id?}', 'CustomerController@status')->name('customer.status');
