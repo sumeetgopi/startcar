@@ -6,7 +6,7 @@ class Validation
 {
     public function register($inputs = []) {
         $rules = [
-            'name' => 'nullable|min:1|max:255|regex:/^[a-zA-Z]+$/',
+            'name' => 'nullable|min:1|max:255|regex:/^[a-zA-Z ]+$/',
             'device_type' => 'required|in:android,ios',
             'user_type' => 'required|in:customer,agency',
         ];
@@ -81,19 +81,20 @@ class Validation
     public function agencyUpdate($inputs = [])
     {
         $rules = [
-            'agency_name' => 'nullable|regex:/^[a-zA-Z]+$/',
-            'contact_person' => 'required|min:1|max:255|regex:/^[a-zA-Z]+$/',
+            'agency_name' => 'nullable|regex:/^[a-zA-Z ]+$/',
+            'contact_person' => 'required|min:1|max:255|regex:/^[a-zA-Z ]+$/',
             'email' => 'required|email',
             'address' => 'required|min:1|max:255',
             'gst_number' => 'nullable',
+            'state_ids' => 'required',
         ];
         return validator($inputs, $rules);
     }
 
-    public function addDriver($inputs = [])
+    public function driverAdd($inputs = [])
     {
         $rules = [
-            'driver_name' => 'required|min:1|max:255|regex:/^[a-zA-Z]+$/',
+            'driver_name' => 'required|min:1|max:255|regex:/^[a-zA-Z ]+$/',
             'license_number' => 'required',
             'experience_in_year' => 'required',
             'pan_adhar_number' => 'required',
@@ -102,7 +103,7 @@ class Validation
         return validator($inputs, $rules);
     }
 
-    public function addVehicle($inputs = [])
+    public function vehicleAdd($inputs = [])
     {
         $rules = [
             'model_in_year' => 'required',

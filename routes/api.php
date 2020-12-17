@@ -10,6 +10,8 @@ Route::prefix('agency')->namespace('Api')->middleware(['jwt.auth', 'jwt.agency']
     Route::post('logout', 'AgencyController@logout');
     Route::post('common', 'AgencyController@common');
     Route::post('agency-update', 'AgencyController@agencyUpdate');
+    Route::post('driver-add', 'AgencyController@driverAdd');
+    Route::post('vehicle-add', 'AgencyController@vehicleAdd');
 });
 // agency code end
 

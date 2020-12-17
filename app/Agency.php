@@ -15,7 +15,7 @@ class Agency extends Model
     public $sortEntity = 'agency.id';
 
     protected $fillable = [
-        'agency_id',
+        'user_id',
         'agency_name',
         'contact_person',
         'email',
@@ -33,9 +33,9 @@ class Agency extends Model
         'deleted_at'
     ];
 
-    public function apiAgencyUpdate($inputs, $agencyId)
+    public function apiAgencyUpdate($inputs, $userId)
     {
-        $result = $this->where('agency.agency_id', $agencyId)->first();
+        $result = $this->where('agency.user_id', $userId)->first();
         if($result) {
             $result->update($inputs);
             return $result->id;

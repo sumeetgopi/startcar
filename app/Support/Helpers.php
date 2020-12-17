@@ -9,6 +9,12 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
+define('DB_DATE_FORMAT', 'Y-m-d');
+define('DB_DATETIME_FORMAT', 'Y-m-d H:i:s');
+
+define('DATETIME_FORMAT', 'd-m-Y h:i A');
+define('DATE_FORMAT', 'Y-m-d');
+
 function jsonResponse($status, $statusCode, $message, $extra = [])
 {
     $response = ['success' => $status, 'status' => $statusCode];

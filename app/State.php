@@ -33,7 +33,7 @@ class State extends Model
         return $query->where('state.status', 1);
     }
 
-    
+
 
     public function validation($inputs = [], $id = null)
     {
@@ -116,9 +116,14 @@ class State extends Model
     //         }
     //     }
     //     return $service;
-    // }    
+    // }
 
-   
 
+    public function apiState()
+    {
+        return $this
+            ->active()
+            ->get();
+    }
     
 }

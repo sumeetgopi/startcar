@@ -25,7 +25,6 @@ class Vehicle extends Model
 
         'registration_document',
         'insurance_document',
-        'vehicle_pics',
 
         'created_at',
         'updated_at',

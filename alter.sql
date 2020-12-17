@@ -178,7 +178,7 @@ ALTER TABLE users CHANGE user_type user_type ENUM('admin','customer','agency') D
 create table brand 
 (
   id int(11) primary key auto_increment,
-  brand_name varchar(255) not null,
+  brand_name varchar(255) default '',
   status tinyint(4) default 0,
   created_at timestamp null default null,
   updated_at timestamp null default null,
@@ -188,7 +188,7 @@ create table brand
 create table car_color 
 (
   id int(11) primary key auto_increment,
-  color_name varchar(255) not null,
+  color_name varchar(255) default '',
   status tinyint(4) default 0,
   created_at timestamp null default null,
   updated_at timestamp null default null,
@@ -198,7 +198,7 @@ create table car_color
 create table car_type 
 (
   id int(11) primary key auto_increment,
-  car_type_name varchar(255) not null,
+  car_type_name varchar(255) default '',
   status tinyint(4) default 0,
   created_at timestamp null default null,
   updated_at timestamp null default null,
@@ -208,10 +208,79 @@ create table car_type
 create table state 
 (
   id int(11) primary key auto_increment,
-  state_name varchar(255) not null,
+  state_name varchar(255) default '',
   status tinyint(4) default 0,
+
   created_at timestamp null default null,
   updated_at timestamp null default null,
   deleted_at timestamp null default null
 );
 
+-- ------16-12-2020----------SN
+create table agency (
+  id int(11) primary key auto_increment,
+  user_id int(11),
+  agency_name varchar(255) default '',
+  contact_person varchar(255) default '',
+  email varchar(255) default '',
+  address varchar(255) default '',
+  gst_number varchar(255) default '',
+
+  created_at timestamp null default null,
+  updated_at timestamp null default null,
+  deleted_at timestamp null default null
+);
+
+create table driver (
+  id int(11) primary key auto_increment,
+  agency_id int(11),
+  driver_name varchar(255) default '',
+  license_number varchar(255) default '',
+  experience_in_year varchar(255) default '',
+  pan_adhar_number varchar(255) default '',
+  pan_adhar_document varchar(255) default '',
+
+  created_at timestamp null default null,
+  updated_at timestamp null default null,
+  deleted_at timestamp null default null
+);
+
+create table vehicle (
+  id int(11) primary key auto_increment,
+  model_in_year VARCHAR(255) DEFAULT '',
+  brand_id int(11),
+  type_id int(11),
+  color_id int(11),
+  vehicle_variant VARCHAR(255) DEFAULT '',
+  kms_driven VARCHAR(255) DEFAULT '',
+  registration_number VARCHAR(255) DEFAULT '',
+
+  registration_document VARCHAR(255) DEFAULT '',
+  insurance_document VARCHAR(255) DEFAULT '',
+
+  created_at TIMESTAMP null DEFAULT null,
+  updated_at TIMESTAMP null DEFAULT null,
+  deleted_at TIMESTAMP null DEFAULT null
+);
+
+create table vehicle_image
+(
+  id int(11) primary key AUTO_INCREMENT,
+  vehicle_id int(11),
+  vehicle_image varchar(255) default '',
+
+  created_at TIMESTAMP null DEFAULT null,
+  updated_at TIMESTAMP null DEFAULT null,
+  deleted_at TIMESTAMP null DEFAULT null
+);
+
+create table agency_state (
+  id int(11) primary key AUTO_INCREMENT,
+  user_id int(11),
+  agency_id int(11),
+  state_id int(11),
+
+  created_at timestamp null default null,
+  updated_at timestamp null default null,
+  deleted_at timestamp null default null
+);

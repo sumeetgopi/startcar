@@ -12,7 +12,9 @@
 			"description": "",
 			"collectionId": "b3d951bd-c2ac-8d0e-2541-0143c30a7a0d",
 			"order": [
-				"1e3fe644-02d3-9006-126e-3c4d0f4c94dc"
+				"1e3fe644-02d3-9006-126e-3c4d0f4c94dc",
+				"a6ac52d6-34ee-c458-82dc-57494c58b816",
+				"2ce80c01-0aad-3d7f-7f7c-f800e2a26a6c"
 			],
 			"owner": 0,
 			"folders_order": [],
@@ -40,11 +42,11 @@
 	"requests": [
 		{
 			"id": "1e3fe644-02d3-9006-126e-3c4d0f4c94dc",
-			"headers": "Authorization: {{customer_token}}\n",
+			"headers": "Authorization: {{agency_token}}\n",
 			"headerData": [
 				{
 					"key": "Authorization",
-					"value": "{{customer_token}}",
+					"value": "{{agency_token}}",
 					"description": "",
 					"enabled": true
 				}
@@ -62,7 +64,7 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1607786501711,
+			"time": 1608117997043,
 			"name": "Common",
 			"description": "",
 			"collectionId": "b3d951bd-c2ac-8d0e-2541-0143c30a7a0d",
@@ -81,14 +83,14 @@
 			"data": [
 				{
 					"key": "otp_code",
-					"value": "7706",
+					"value": "8650",
 					"type": "text",
 					"enabled": true,
 					"description": ""
 				},
 				{
 					"key": "user_type",
-					"value": "customer",
+					"value": "agency",
 					"type": "text",
 					"enabled": true,
 					"description": "agency/customer"
@@ -120,8 +122,147 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1607786882870,
+			"time": 1608226394038,
 			"name": "Otp Verify",
+			"description": "",
+			"collectionId": "b3d951bd-c2ac-8d0e-2541-0143c30a7a0d",
+			"responses": []
+		},
+		{
+			"id": "2ce80c01-0aad-3d7f-7f7c-f800e2a26a6c",
+			"headers": "Authorization: {{agency_token}}\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "{{agency_token}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{url}}/agency/driver-add",
+			"folder": "6b679317-6c49-38cf-48c7-fdbec11a1e0a",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [
+				{
+					"key": "driver_name",
+					"value": "driver one",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "license_number",
+					"value": "112233",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "experience_in_year",
+					"value": "2",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "pan_adhar_number",
+					"value": "223344",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "pan_adhar_document",
+					"value": "c.jpg",
+					"description": "",
+					"type": "file",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1608118808788,
+			"name": "Driver Add",
+			"description": "",
+			"collectionId": "b3d951bd-c2ac-8d0e-2541-0143c30a7a0d",
+			"responses": []
+		},
+		{
+			"id": "a6ac52d6-34ee-c458-82dc-57494c58b816",
+			"headers": "Authorization: {{agency_token}}\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "{{agency_token}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{url}}/agency/agency-update",
+			"folder": "6b679317-6c49-38cf-48c7-fdbec11a1e0a",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [
+				{
+					"key": "agency_name",
+					"value": "New agency",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "contact_person",
+					"value": "Sukhdeep",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "sukhdeep@gmail.com",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "address",
+					"value": "Near Bus Stand",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "gst_number",
+					"value": "112233",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "state_ids",
+					"value": "1,2,3",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1608226390341,
+			"name": "Agency Update",
 			"description": "",
 			"collectionId": "b3d951bd-c2ac-8d0e-2541-0143c30a7a0d",
 			"responses": []
@@ -169,10 +310,10 @@
 			"data": [
 				{
 					"key": "name",
-					"value": "agency first",
+					"value": "",
 					"type": "text",
 					"enabled": true,
-					"description": ""
+					"description": "optional"
 				},
 				{
 					"key": "device_type",
@@ -183,7 +324,7 @@
 				},
 				{
 					"key": "user_type",
-					"value": "customer",
+					"value": "agency",
 					"description": "customer/agency",
 					"type": "text",
 					"enabled": true
@@ -208,7 +349,7 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1607786839454,
+			"time": 1607789719076,
 			"name": "Register",
 			"description": "",
 			"collectionId": "b3d951bd-c2ac-8d0e-2541-0143c30a7a0d",
